@@ -26,9 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (progress < 0) progress = 0;
     if (progress > 1) progress = 1;
 
-    // const isDesktop = window.innerWidth >= 768;
+     const isDesktop = window.innerWidth >= 768;
     // Echelle du camion
-    const baseScale = 1.5; // Ajusté pour mobile
+    const baseScale = isDesktop ? 1.5 : 1.2; // Ajusté pour mobile
 
     // --- PHASE 1 : DÉPART HERO (0% -> 50%) ---
     let exitProgress = progress * 1;
