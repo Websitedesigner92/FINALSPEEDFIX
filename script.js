@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // --- CALCULATEUR DE PRIX (Code Standard) ---
-const TARIFS_URL = "../tarif.json";
+const TARIFS_URL = "./tarif.json";
 
 const TYPE_LABELS = {
   ecran: "écran",
