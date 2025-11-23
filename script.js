@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
               }, 200 + (index * 300));
             });
           }
-        }, 500);
+        }, 300);
 
       } else if (progressServices <= 1 && isDashboardVisible) {
         isDashboardVisible = false;
