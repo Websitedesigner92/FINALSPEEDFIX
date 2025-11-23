@@ -1,263 +1,75 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // SELECTIONS
-  const camionHero = document.getElementById('camion-wrapper');
+  // --- 1. GESTION DU SCROLL (SCROLLYTELLING) ---
+  const scrollTrack = document.getElementById('scroll-track');
+  const sceneHero = document.getElementById('scene-hero');
+  const heroText = document.getElementById('hero-text');
+  const heroCamion = document.getElementById('hero-camion');
+  const sceneServices = document.getElementById('scene-services');
+  const servicesCamion = document.getElementById('services-camion');
+  const servicesDashboard = document.getElementById('services-dashboard');
 
-  const sectionServices = document.getElementById('services');
-  const camionServices = document.getElementById('camion-services');
-  const dashboard = document.getElementById('dashboard-ux');
-  const serviceCards = document.querySelectorAll('#dashboard-ux a');
-
-
-  // MENU MOBILE
-  // Sur mobile, le menu de navigation est masqué par défaut et un bouton hamburger.
-  const mobileMenuButton = document.getElementById('mobileMenuButton');
+  // Menu Mobile
+  const mobileBtn = document.getElementById('mobileMenuButton');
   const mobileMenu = document.getElementById('mobileMenu');
-
-  if (mobileMenuButton && mobileMenu) {
-    mobileMenuButton.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
+  if (mobileBtn && mobileMenu) {
+    mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
   }
 
-
-  let isDashboardVisible = false;
-
-  // FONCTION PRINCIPALE DE SCROLL
   window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    const windowHeight = window.innerHeight;
-    const windowWidth = window.innerWidth;
+    if (!scrollTrack) return;
 
-    // Mobile ou ordinateur (point de rupture md = 768px)
-    const isDesktop = windowWidth >= 768;
+    const rect = scrollTrack.getBoundingClientRect();
+    const trackHeight = scrollTrack.offsetHeight - window.innerHeight;
+    let progress = (0 - rect.top) / trackHeight;
 
-    // Facteur echelle du camion hero
-    const heroScale = isDesktop ? 1.5 : .5;
+    if (progress < 0) progress = 0;
+    if (progress > 1) progress = 1;
 
+    // const isDesktop = window.innerWidth >= 768;
+    // Echelle du camion
+    const baseScale = 1.5; // Ajusté pour mobile
 
-    // =======================================================
-    // 1. PREMIER CAMION Départ
-    // =======================================================
+    // --- PHASE 1 : DÉPART HERO (0% -> 50%) ---
+    let exitProgress = progress * 1;
+    if (exitProgress > 1) exitProgress = 1;
 
-    if (camionHero) {
+    const heroMoveX_Text = exitProgress * -1000;
+    const heroMoveX_Camion = exitProgress * 1500;
+    const heroOpacity = 1 - (exitProgress * 1.5);
 
-      // Configuration responsive
-      // Sur Desktop : le camion part vers la droite (60% de l'écran)
-      // Sur Mobile : il bouge très peu ou juste en opacité pour éviter de sortir de l'écran
+    if (sceneHero) {
+      heroText.style.transform = `translateX(${heroMoveX_Text}px)`;
+      heroText.style.opacity = Math.max(0, heroOpacity);
 
-      const moveDistance = isDesktop ? windowWidth * 0.6 : 50;
-
-      const startHero = 0;
-
-      const endHero = isDesktop ? 700 : 400; // Plus court sur mobile
-
-      let progressHero = (scrollY - startHero) / (endHero - startHero);
-
-      if (progressHero < 0) progressHero = 0;
-      if (progressHero > 1) progressHero = 1;
-
-      const moveX_Hero = progressHero * moveDistance;
-      const opacityHero = 1 - progressHero;
-
-      // Application
-      camionHero.style.transform = `translateX(${moveX_Hero}px) scale(${heroScale})`;
-      camionHero.style.opacity = opacityHero;
+      heroCamion.style.transform = `translateX(${heroMoveX_Camion}px) scale(${baseScale})`;
+      heroCamion.style.opacity = Math.max(0, heroOpacity);
     }
 
-    // =======================================================
-    // 2. DEUXIÈME CAMION (SERVICES) - Pilotage
-    // =======================================================
-    if (sectionServices && camionServices) {
+    // --- PHASE 2 : ARRIVÉE SERVICES (20% -> 100%) ---
+    let enterStart = 0.2;
+    let enterEnd = 1;
+    let enterProgress = (progress - enterStart) / (enterEnd - enterStart);
+    if (enterProgress < 0) enterProgress = 0;
+    if (enterProgress > 1) enterProgress = 1;
 
-      const rect = sectionServices.getBoundingClientRect();
-      const sectionTop = rect.top;
+    const servicesMoveX = 1200 - (enterProgress * 1200);
+    const dashboardMoveY = 1000 - (enterProgress * 1000);
 
-      // REGLAGES DU PILOTAGE
-      const startPoint = windowHeight * 1;
-      const endPoint = windowHeight * 0.15;
-
-      let progressServices = (startPoint - sectionTop) / (startPoint - endPoint);
-
-      if (progressServices < 0) progressServices = 0;
-      if (progressServices > 1) progressServices = 1;
-
-      // MATHÉMATIQUES RESPONSIVES
-      // Position de départ : Juste en dehors de l'écran à droite (largeur de l'écran + un peu de marge)
-      // Sur mobile, on réduit la distance pour éviter les bugs d'affichage
-      const startPositionX = isDesktop ? windowWidth * 0.8 : 300;
-
-      // Calcul de la position actuelle (de startPositionX vers 0)
-      let currentPositionX = startPositionX - (progressServices * startPositionX);
-
-      // Ajustement fin : parfois à 100% il reste un petit décalage, on force le 0 si proche
-      if (progressServices > 0.98) currentPositionX = 0;
-
-      // Application du mouvement
-
-      camionServices.style.transform = `translateX(${currentPositionX}px) scale(${isDesktop ? 1.5 : 1.2})`;
-      camionServices.style.opacity = progressServices;
-
-
-
-      // =======================================================
-      // 3. GESTION DU DASHBOARD (CORRIGÉ)
-      // =======================================================
-      // Seuil d'apparition (ex: 80% du trajet)
-      if (progressServices > 0.8 && !isDashboardVisible) {
-        isDashboardVisible = true;
-
-
-        if (dashboard) {
-          dashboard.classList.remove('opacity-0', 'translate-y-4');
-          dashboard.classList.add('opacity-100', 'translate-y-0');
-
-          serviceCards.forEach((card, index) => {
-            setTimeout(() => {
-              card.classList.remove('opacity-0', 'translate-y-8');
-            }, 200 + (index * 300));
-          });
-        }
-
-      }
-      // On ne masque que si on REMONTE (progress < 0.8)
-      else if (progressServices < 0.8 && isDashboardVisible) {
-        isDashboardVisible = false;
-
-        if (dashboard) {
-          dashboard.classList.remove('opacity-100', 'translate-y-0');
-          dashboard.classList.add('opacity-0', 'translate-y-4');
-
-          serviceCards.forEach(card => {
-            card.classList.add('opacity-0', 'translate-y-8');
-          });
-        }
-      }
+    if (sceneServices) {
+      sceneServices.style.opacity = enterProgress;
+      // Le camion arrive de la droite
+      servicesCamion.style.transform = `translateX(${servicesMoveX}px) scale(${baseScale})`;
+      // Le dashboard monte
+      servicesDashboard.style.transform = `translateY(${dashboardMoveY}px)`;
     }
   });
 });
 
 
 
-// document.addEventListener('DOMContentLoaded', () => {
-
-//   // SELECTIONS
-//   const camionHero = document.getElementById('camion-wrapper');
-
-//   const sectionServices = document.getElementById('services');
-//   const camionServices = document.getElementById('camion-services');
-//   const dashboard = document.getElementById('dashboard-ux');
-//   const serviceCards = document.querySelectorAll('#dashboard-ux a');
-
-//   // Variable pour gérer l'état du dashboard (pour ne pas relancer l'anim en boucle)
-//   let isDashboardVisible = false; 
-
-//   // FONCTION PRINCIPALE DE SCROLL
-//   window.addEventListener('scroll', () => {
-//     const scrollY = window.scrollY;
-//     const windowHeight = window.innerHeight;
-
-//     // =======================================================
-//     // 1. PREMIER CAMION (HERO) - Départ vers la droite
-//     // =======================================================
-//     if (camionHero) {
-//       const startHero = 0; 
-//       const endHero = 700; // Distance de scroll pour faire disparaître le 1er camion
-
-//       let progressHero = (scrollY - startHero) / (endHero - startHero);
-
-//       // On borne entre 0 et 1
-//       if (progressHero < 0) progressHero = 0;
-//       if (progressHero > 1) progressHero = 1;
-
-//       const moveX_Hero = progressHero * 700; // Il part de 700px vers la droite
-//       const opacityHero = 1 - progressHero;
-
-//       camionHero.style.transform = `translateX(${moveX_Hero}px) scale(1.5)`;
-//       camionHero.style.opacity = opacityHero;
-//     }
-
-//     // =======================================================
-//     // 2. DEUXIÈME CAMION (SERVICES) - Arrivée depuis la droite
-//     // =======================================================
-//     if (sectionServices && camionServices) {
-
-//       // Calculer la position de la section par rapport à l'écran
-//       const rect = sectionServices.getBoundingClientRect();
-//       const sectionTop = rect.top; // Distance entre le haut de la section et le haut de l'écran
-
-//       // REGLAGES DU PILOTAGE
-//       // Quand est-ce qu'on commence à bouger ? Quand la section entre en bas de l'écran
-//       const startPoint = windowHeight * 1; 
-//       // Quand est-ce qu'on est garé ? Quand la section est un peu remontée (milieu d'écran)
-//       const endPoint = windowHeight * 0.15; 
-
-//       // Calcul du % d'avancement (Inverse car on scroll vers le bas pour le faire venir)
-//       let progressServices = (startPoint - sectionTop) / (startPoint - endPoint);
-
-//       // Bornage entre 0 et 1
-//       if (progressServices < 0) progressServices = 0;
-//       if (progressServices > 1) progressServices = 1;
-
-//       // MATHÉMATIQUES DU MOUVEMENT
-//       // À 0% (pas visible) -> Il est à 1500px (loin à droite)
-//       // À 100% (visible) -> Il est à 0px (garé)
-//       const startPositionX = 1500; 
-//       const currentPositionX = startPositionX - (progressServices * startPositionX);
-
-//       // Appliquer le mouvement (PILOTAGE EN TEMPS RÉEL)
-//       camionServices.style.transform = `translateX(${currentPositionX - 60}px) scale(1.5)`;
-//       // On gère l'opacité aussi : transparent au début, visible à la fin
-//       camionServices.style.opacity = progressServices;
-
-
-//       // =======================================================
-//       // 3. GESTION DU DASHBOARD (Apparition / Disparition)
-//       // =======================================================
-//       // Si le camion est quasiment arrivé (> 95%) ET que le dashboard n'est pas encore là
-//       if (progressServices >= 1 && !isDashboardVisible) {
-//         isDashboardVisible = true;
-
-//         // Petit délai de 20ms comme demandé
-//         setTimeout(() => {
-//           if(dashboard) {
-//             dashboard.classList.remove('opacity-0', 'translate-y-4');
-//             dashboard.classList.add('opacity-100', 'translate-y-0');
-
-//             // Cascade des cartes
-//             serviceCards.forEach((card, index) => {
-//               setTimeout(() => {
-//                 card.classList.remove('opacity-0', 'translate-y-8');
-//               }, 200 + (index * 250));
-//             });
-//           }
-//         }, 100);
-
-//       } 
-//       // Si on remonte et que le camion repart (< 80%) ET que le dashboard est visible
-//       else if (progressServices < 1 && isDashboardVisible) {
-//         isDashboardVisible = false;
-
-//         // On cache tout
-//         if(dashboard) {
-//           dashboard.classList.remove('opacity-100', 'translate-y-0');
-//           dashboard.classList.add('opacity-0', 'translate-y-4'); // Remettre translate-y-4 pour l'effet de montée au retour
-
-//           serviceCards.forEach(card => {
-//             card.classList.add('opacity-0', 'translate-y-8');
-//           });
-//         }
-//       }
-//     }
-//   });
-// });
-
-
 
 /// calcul des pour le simulateur de tarifs
-
-
-// --- CALCULATEUR DE PRIX (Code Standard) ---
 const TARIFS_URL = "./tarif.json";
 
 const TYPE_LABELS = {
@@ -288,7 +100,7 @@ async function loadTarifs() {
     tarifsData = await res.json();
     Modele_telephone();
   } catch (e) {
-    if(priceDetailEl) priceDetailEl.textContent = "Erreur chargement tarifs.";
+    if (priceDetailEl) priceDetailEl.textContent = "Erreur chargement tarifs.";
   }
 }
 
