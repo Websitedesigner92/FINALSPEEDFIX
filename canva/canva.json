@@ -1,0 +1,238 @@
+{
+  "document": {
+    "id": "SPEEDFIX-DOC",
+    "name": "SpeedFix – Full Website",
+    "children": [
+      {
+        "id": "PAGE-DESKTOP",
+        "name": "Desktop 1440",
+        "type": "CANVAS",
+        "children": [
+
+          {
+            "id": "FRAME-HERO",
+            "name": "Hero Section",
+            "type": "FRAME",
+            "absoluteBoundingBox": { "x": 0, "y": 0, "width": 1440, "height": 820 },
+            "backgroundColor": { "r": 0, "g": 0, "b": 0 },
+            "layoutMode": "VERTICAL",
+            "paddingLeft": 120,
+            "paddingRight": 120,
+            "paddingTop": 120,
+            "paddingBottom": 120,
+            "itemSpacing": 40,
+            "children": [
+              {
+                "id": "HERO-TITLE",
+                "type": "TEXT",
+                "characters": "VOTRE SMARTPHONE EST CASSÉ ?\nON A LA SOLUTION !",
+                "style": {
+                  "fontSize": 62,
+                  "fontFamily": "Montserrat",
+                  "fontWeight": 800,
+                  "lineHeightPercent": 110,
+                  "fills": [{ "type": "SOLID", "color": {"r":1,"g":1,"b":1}}]
+                }
+              },
+              {
+                "id": "HERO-SUB",
+                "type": "TEXT",
+                "characters": "Réparation rapide • Déplacement à domicile • 100% SpeedFix",
+                "style": {
+                  "fontSize": 20,
+                  "fontFamily": "Inter",
+                  "fontWeight": 400,
+                  "fills": [{ "type": "SOLID", "color": {"r":0.9,"g":0.9,"b":0.9}}]
+                }
+              },
+              {
+                "id": "HERO-CTA",
+                "type": "RECTANGLE",
+                "name": "CTA Button",
+                "absoluteBoundingBox": { "x": 0, "y": 0, "width": 260, "height": 64 },
+                "fills": [{ "type": "SOLID", "color": {"r":1,"g":0,"b":0}}]
+              },
+              {
+                "id": "HERO-IMG-PLACE",
+                "name": "Hero Phone Placeholder",
+                "type": "RECTANGLE",
+                "absoluteBoundingBox": { "x": 0, "y": 0, "width": 420, "height": 580 },
+                "fills": [{ "type": "SOLID", "color": {"r":0.15,"g":0.15,"b":0.15}}],
+                "strokes": [{ "type": "SOLID", "color": {"r":1,"g":1,"b":1}}],
+                "cornerRadius": 32
+              }
+            ]
+          },
+
+          {
+            "id": "FRAME-AVANT-APRES",
+            "name": "Avant / Après",
+            "type": "FRAME",
+            "absoluteBoundingBox": { "x": 0, "y": 980, "width": 1440, "height": 900 },
+            "backgroundColor": { "r": 0.05, "g": 0.05, "b": 0.05 },
+            "layoutMode": "HORIZONTAL",
+            "itemSpacing": 80,
+            "paddingLeft": 120,
+            "paddingRight": 120,
+            "paddingTop": 140,
+            "paddingBottom": 140,
+            "children": [
+              {
+                "id": "AV-placeholder-left",
+                "name": "Phone Before",
+                "type": "RECTANGLE",
+                "absoluteBoundingBox": {"x":0,"y":0,"width":380,"height":600},
+                "cornerRadius":30,
+                "fills":[{"type":"SOLID","color":{"r":0.15,"g":0.15,"b":0.15}}]
+              },
+              {
+                "id": "AP-placeholder-right",
+                "name": "Phone After",
+                "type": "RECTANGLE",
+                "absoluteBoundingBox": {"x":0,"y":0,"width":380,"height":600},
+                "cornerRadius":30,
+                "fills":[{"type":"SOLID","color":{"r":0.15,"g":0.15,"b":0.15}}]
+              }
+            ]
+          },
+
+          {
+            "id": "FRAME-SERVICES",
+            "name": "Services",
+            "type": "FRAME",
+            "absoluteBoundingBox": { "x": 0, "y": 2000, "width": 1440, "height": 900 },
+            "backgroundColor": { "r": 0, "g": 0, "b": 0 },
+            "layoutMode": "VERTICAL",
+            "paddingLeft": 120,
+            "paddingRight": 120,
+            "paddingTop": 120,
+            "paddingBottom": 120,
+            "itemSpacing": 40,
+            "children": [
+              {
+                "id": "SERV-TITLE",
+                "type": "TEXT",
+                "characters": "NOS SERVICES",
+                "style": {
+                  "fontSize": 52,
+                  "fontFamily": "Montserrat",
+                  "fontWeight": 800,
+                  "fills": [{ "type": "SOLID", "color": {"r":1,"g":1,"b":1}}]
+                }
+              },
+              {
+                "id": "SERV-GRID",
+                "name": "Services Grid",
+                "type": "FRAME",
+                "layoutMode": "HORIZONTAL",
+                "itemSpacing": 40,
+                "children": [
+                  {
+                    "id": "SERV1",
+                    "type": "RECTANGLE",
+                    "name": "Bloc Service 1",
+                    "absoluteBoundingBox": {"width":340,"height":360},
+                    "cornerRadius":24,
+                    "fills":[{"type":"SOLID","color":{"r":0.12,"g":0.12,"b":0.12}}]
+                  },
+                  {
+                    "id": "SERV2",
+                    "type": "RECTANGLE",
+                    "name": "Bloc Service 2",
+                    "absoluteBoundingBox": {"width":340,"height":360},
+                    "cornerRadius":24,
+                    "fills":[{"type":"SOLID","color":{"r":0.12,"g":0.12,"b":0.12}}]
+                  },
+                  {
+                    "id": "SERV3",
+                    "type": "RECTANGLE",
+                    "name": "Bloc Service 3",
+                    "absoluteBoundingBox": {"width":340,"height":360},
+                    "cornerRadius":24,
+                    "fills":[{"type":"SOLID","color":{"r":0.12,"g":0.12,"b":0.12}}]
+                  }
+                ]
+              }
+            ]
+          },
+
+          {
+            "id": "FRAME-CONTACT",
+            "name": "Contact",
+            "type": "FRAME",
+            "absoluteBoundingBox": { "x": 0, "y": 3000, "width": 1440, "height": 760 },
+            "backgroundColor": { "r": 0.05, "g": 0.05, "b": 0.05 },
+            "layoutMode": "VERTICAL",
+            "paddingLeft": 120,
+            "paddingRight": 120,
+            "paddingTop": 100,
+            "paddingBottom": 100,
+            "itemSpacing": 40,
+            "children": [
+              {
+                "id": "CONTACT-TITLE",
+                "type": "TEXT",
+                "characters": "CONTACT & RÉSERVATION",
+                "style": {
+                  "fontSize": 48,
+                  "fontFamily": "Montserrat",
+                  "fontWeight": 800,
+                  "fills": [{ "type": "SOLID", "color": {"r":1,"g":1,"b":1}}]
+                }
+              },
+              {
+                "id": "CONTACT-BTN",
+                "name": "CTA WhatsApp Placeholder",
+                "type": "RECTANGLE",
+                "absoluteBoundingBox": {"width":340,"height":80},
+                "fills":[{"type":"SOLID","color":{"r":0.1,"g":0.7,"b":0.1}}],
+                "cornerRadius":20
+              }
+            ]
+          }
+        ]
+      },
+
+      {
+        "id": "PAGE-MOBILE",
+        "name": "Mobile 390",
+        "type": "CANVAS",
+        "children": [
+          {
+            "id": "MOBILE-HERO",
+            "name": "Hero Mobile",
+            "type": "FRAME",
+            "absoluteBoundingBox": {"x":0,"y":0,"width":390,"height":740},
+            "backgroundColor": {"r":0,"g":0,"b":0},
+            "layoutMode": "VERTICAL",
+            "paddingLeft":24,
+            "paddingRight":24,
+            "paddingTop":40,
+            "paddingBottom":40,
+            "itemSpacing":32,
+            "children": [
+              {
+                "id": "M-HERO-TITLE",
+                "type": "TEXT",
+                "characters": "SMARTPHONE CASSÉ ?",
+                "style": {
+                  "fontSize": 36,
+                  "fontFamily": "Montserrat",
+                  "fontWeight": 800,
+                  "fills": [{ "type": "SOLID", "color": {"r":1,"g":1,"b":1}}]
+                }
+              },
+              {
+                "id": "M-HERO-IMG",
+                "type": "RECTANGLE",
+                "absoluteBoundingBox": {"width":290,"height":380},
+                "fills":[{"type":"SOLID","color":{"r":0.15,"g":0.15,"b":0.15}}],
+                "cornerRadius":24
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
