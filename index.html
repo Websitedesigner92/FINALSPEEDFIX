@@ -38,14 +38,13 @@
 <body class="bg-dark text-white font-sans antialiased overflow-x-hidden">
 
   <header class="fixed top-0 inset-x-0 z-30 border-b border-white/10 bg-dark/80 backdrop-blur">
-    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-      <a href="#top" class="flex items-center w-28 mt-auto scale-[230%]">
+    <div class="max-w-6xl mx-auto lg:px-4  h-16 flex items-center justify-between ">
+      <a href="#top" class="w-32 h-16 flex items-center relative lg:w-40 lg:scale-[150%] ">
         <img src="./img/logo.png" alt="SpeedFix"
-          class="h-auto  w-auto object-contain hover:opacity-90 transition-opacity">
+          class="object-contain hover:opacity-80 absolute lg:top-0   transition-opacity">
       </a>
 
       <nav class="hidden md:flex items-center gap-6 text-xs uppercase tracking-[0.16em] text-white/70">
-        <a href="#services" class="hover:text-primary transition-colors">Services</a>
         <a href="#tarifs" class="hover:text-primary transition-colors">Tarifs</a>
         <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
       </nav>
@@ -69,7 +68,6 @@
 
     <div id="mobileMenu" class="md:hidden hidden border-t border-white/10 bg-dark">
       <nav class="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-3 text-xs uppercase tracking-[0.16em] text-white/80">
-        <a href="#services" class="py-1">Services</a>
         <a href="#tarifs" class="py-1">Tarifs</a>
         <a href="#contact" class="py-1">Contact</a>
       </nav>
@@ -80,32 +78,26 @@
 
     <!-- //-- SCROLLTELLING SECTION --// -->
     <section id="scroll-track" class="relative h-[150vh]">
-
       <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+
 
         <div class="relative w-full max-w-6xl h-full px-4">
 
           <div id="scene-hero"
             class="absolute inset-0 grid md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-10 items-center h-full w-full pointer-events-none">
 
-            <div id="hero-text" class="space-y-6 pointer-events-auto will-change-transform">
-              <div class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1">
-                <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                <span class="text-[11px] uppercase tracking-[0.18em] text-white/70">
-                  Smartphone cassé ? Urgence SPEEDFIX
-                </span>
-              </div>
+            <div id="hero-text" class="space-y-6 lg:space-y-6 pointer-events-auto will-change-transform">
               <div>
                 <h1 class="font-display text-3xl sm:text-4xl md:text-4xl font-extrabold leading-tight tracking-tight">
                   Votre <span class="text-primary">smartphone</span> est cassé ?<br />
                   Nous avons la <span class="underline decoration-primary">solution </span>!
                 </h1>
               </div>
-              <p class="text-sm md:text-base text-white/70 max-w-xl">
+              <p class="mt-4 text-sm md:text-base text-white/70 max-w-xl">
                 Écran fissuré, batterie HS ? SpeedFix répare votre téléphone directement chez vous ou au
                 bureau.
               </p>
-              <div class="flex flex-wrap items-center gap-3">
+              <div class="flex mt-4 flex-wrap items-center gap-3">
                 <a href="#contact"
                   class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-primary text-xs md:text-sm font-semibold uppercase tracking-[0.18em] hover:bg-primary/90 transition">
                   Prendre RDV
@@ -192,6 +184,7 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -271,7 +264,8 @@
                   <button type="button" data-quality="premium"
                     class="flex flex-col items-start p-4 rounded-xl border border-white/10 bg-white/5 text-white/80 text-left transition-all hover:bg-white/10 border-l-4 border-l-transparent hover:border-l-primary">
                     <span class="text-sm font-bold uppercase mb-1">Premium </span>
-                    <span class="text-[10px] text-white/40 leading-tight">Écrans premium haute qualité, fidèles à l’affichage d'origine.</span>
+                    <span class="text-[10px] text-white/40 leading-tight">Écrans premium haute qualité, fidèles à
+                      l’affichage d'origine.</span>
                   </button>
                 </div>
               </div>
@@ -338,7 +332,8 @@
 
             <div class="space-y-3 text-sm text-white/75 bg-white/5 p-6 rounded-2xl border border-white/10">
               <p class="flex items-center gap-3"><span
-                  class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center text-xs">📞</span> <span>06 63 66 96 05</span></p>
+                  class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center text-xs">📞</span> <span>06
+                  63 66 96 05</span></p>
               <p class="flex items-center gap-3"><span
                   class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center text-xs">💬</span>
                 <span>WhatsApp disponible</span>

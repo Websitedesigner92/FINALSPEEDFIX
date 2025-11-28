@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
      const isDesktop = window.innerWidth >= 768;
     // Echelle du camion
-    const baseScale = isDesktop ? 1.5 : .9; // Ajusté pour mobile
+    const baseScale = isDesktop ? 1.5 : 1.2; // Ajusté pour mobile
 
     // --- PHASE 1 : DÉPART HERO (0% -> 50%) ---
     let exitProgress = progress * 1;
