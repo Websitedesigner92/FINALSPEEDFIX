@@ -37,11 +37,12 @@
 
 <body class="bg-dark text-white font-sans antialiased overflow-x-hidden">
 
+  <!-- HEADER -->
   <header class="fixed top-0 inset-x-0 z-30 border-b border-white/10 bg-dark/80 backdrop-blur">
     <div class="max-w-6xl mx-auto px-4 lg:px-4 h-16 flex items-center justify-between">
-      <a href="#top" class="w-32 h-16 flex items-center relative lg:w-40 lg:scale-[150%] ">
+      <a href="#top" class="w-32 h-16 flex items-center relative lg:w-40 lg:scale-[150%]">
         <img src="./img/logo.png" alt="SpeedFix"
-          class="object-contain hover:opacity-80 absolute lg:top-0   transition-opacity">
+          class="object-contain hover:opacity-80 absolute lg:top-0 transition-opacity">
       </a>
 
       <nav class="hidden md:flex items-center gap-6 text-xs uppercase tracking-[0.16em] text-white/70">
@@ -77,14 +78,15 @@
   <main id="top" class="speedfix-bg min-h-screen">
 
     <!-- //-- SCROLLTELLING SECTION --// -->
-    <section id="scroll-track" class="relative h-[150vh]">
-      <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+    <section id="scroll-track" class="relative min-h-screen md:h-[150vh]">
+      <div
+        class="md:sticky md:top-0 md:h-screen w-full overflow-hidden flex items-center justify-center pt-24 md:pt-0">
 
+        <div class="relative w-full max-w-6xl h-auto md:h-full px-4">
 
-        <div class="relative w-full max-w-6xl h-full px-4">
-
+          <!-- SCENE HERO -->
           <div id="scene-hero"
-            class="absolute inset-0 grid md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-10 items-center h-full w-full pointer-events-none">
+            class="grid md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-10 items-center w-full h-full md:absolute md:inset-0 pointer-events-none">
 
             <div id="hero-text" class="space-y-6 lg:space-y-6 pointer-events-auto will-change-transform">
               <div>
@@ -107,15 +109,16 @@
 
             <div class="relative flex items-center justify-center w-full h-full">
               <div id="hero-camion"
-                class="relative w-full max-w-[450px] scale-110 sm:scale-95  md:scale-150 will-change-transform">
+                class="relative w-full max-w-[450px] scale-110 sm:scale-95 md:scale-150 will-change-transform">
                 <img src="./canva/2_1.png" class="w-full h-auto object-contain drop-shadow-2xl" alt="Camion SpeedFix" />
               </div>
             </div>
 
           </div>
 
+          <!-- SCENE SERVICES -->
           <div id="scene-services"
-            class="absolute inset-0 grid md:grid-cols-2 gap-6 items-center h-full w-full pointer-events-none opacity-0 will-change-transform">
+            class="grid md:grid-cols-2 gap-6 items-center w-full h-full md:absolute md:inset-0 pointer-events-none md:opacity-0 opacity-100 will-change-transform">
 
             <div class="relative flex items-center justify-start order-last md:order-first">
               <div id="services-camion"
@@ -126,7 +129,8 @@
 
             <div id="services-dashboard" class="pointer-events-auto translate-y-10 will-change-transform">
               <div class="mb-8">
-                <span class="text-primary font-bold tracking-[0.2em] text-xs uppercase mb-2 block animate-pulse">Atelier
+                <span
+                  class="text-primary font-bold tracking-[0.2em] text-xs uppercase mb-2 block animate-pulse">Atelier
                   Mobile</span>
                 <h2 class="text-3xl md:text-5xl font-display font-black uppercase leading-tight">
                   On répare quoi <br><span class="text-white/40">aujourd'hui ?</span>
@@ -138,7 +142,7 @@
                   class="group relative flex items-center gap-6 p-6 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-primary/50 hover:scale-105 transition-all cursor-pointer backdrop-blur-sm">
                   <div
                     class="w-12 h-12 rounded-full bg-black/40 flex items-center justify-center border border-white/5 group-hover:bg-primary/20 transition-colors">
-                    <img src="./img/vitre_casse.png" class="w-6 h-6 object-contain">
+                    <img src="./img/vitre_casse.png" class="w-6 h-6 object-contain" alt="Écran cassé">
                   </div>
                   <div>
                     <h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors">
@@ -147,14 +151,15 @@
                   </div>
                   <div
                     class="absolute right-6 text-white/20 group-hover:text-primary group-hover:translate-x-2 transition-all">
-                    →</div>
+                    →
+                  </div>
                 </a>
 
                 <a href="#contact"
                   class="group relative flex items-center gap-6 p-6 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-green-500/50 hover:scale-105 transition-all cursor-pointer backdrop-blur-sm">
                   <div
                     class="w-12 h-12 rounded-full bg-black/40 flex items-center justify-center border border-white/5 group-hover:bg-green-500/20 transition-colors">
-                    <img src="./img/batterie_hs.png" class="w-6 h-6 object-contain">
+                    <img src="./img/batterie_hs.png" class="w-6 h-6 object-contain" alt="Batterie HS">
                   </div>
                   <div>
                     <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition-colors">
@@ -163,7 +168,8 @@
                   </div>
                   <div
                     class="absolute right-6 text-white/20 group-hover:text-green-400 group-hover:translate-x-2 transition-all">
-                    →</div>
+                    →
+                  </div>
                 </a>
 
                 <a href="#contact"
@@ -179,7 +185,8 @@
                   </div>
                   <div
                     class="absolute right-6 text-white/20 group-hover:text-blue-400 group-hover:translate-x-2 transition-all">
-                    →</div>
+                    →
+                  </div>
                 </a>
               </div>
             </div>
@@ -188,9 +195,6 @@
         </div>
       </div>
     </section>
-
-
-
 
     <!-- //-- TARIFS SECTION --// -->
     <section id="tarifs" class="py-20 relative overflow-hidden">
@@ -317,6 +321,7 @@
       </div>
     </section>
 
+    <!-- CONTACT -->
     <section id="contact" class="border-t border-white/10 bg-darkSoft">
       <div class="max-w-6xl mx-auto px-4 py-12 md:py-16">
         <div class="grid md:grid-cols-[1.2fr,1fr] gap-10">
@@ -331,15 +336,16 @@
             </p>
 
             <div class="space-y-3 text-sm text-white/75 bg-white/5 p-6 rounded-2xl border border-white/10">
-              <p class="flex items-center gap-3"><span
-                  class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center text-xs">📞</span> <span>06
-                  63 66 96 05</span></p>
-              <p class="flex items-center gap-3"><span
-                  class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center text-xs">💬</span>
+              <p class="flex items-center gap-3">
+                <span class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center text-xs">📞</span>
+                <span>06 63 66 96 05</span>
+              </p>
+              <p class="flex items-center gap-3">
+                <span class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center text-xs">💬</span>
                 <span>WhatsApp disponible</span>
               </p>
-              <p class="flex items-center gap-3"><span
-                  class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center text-xs">✉️</span>
+              <p class="flex items-center gap-3">
+                <span class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center text-xs">✉️</span>
                 <span>contact@speedfix.fr</span>
               </p>
             </div>
