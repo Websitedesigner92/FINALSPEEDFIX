@@ -38,7 +38,7 @@
 <body class="bg-dark text-white font-sans antialiased overflow-x-hidden">
 
   <header class="fixed top-0 inset-x-0 z-30 border-b border-white/10 bg-dark/80 backdrop-blur">
-    <div class="max-w-6xl mx-auto lg:px-4  h-16 flex items-center justify-between ">
+    < mx-auto lg:px-4  h-16 flex items-center justify-between ">
       <a href="#top" class="w-32 h-16 flex items-center relative lg:w-40 lg:scale-[150%] ">
         <img src="./img/logo.png" alt="SpeedFix"
           class="object-contain hover:opacity-80 absolute lg:top-0   transition-opacity">
@@ -77,15 +77,16 @@
   <main id="top" class="speedfix-bg min-h-screen">
 
     <!-- //-- SCROLLTELLING SECTION --// -->
-    <section id="scroll-track" class="relative h-[150vh]">
-      <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+    <section id="scroll-track" class="relative min-h-screen md:h-[150vh]">
+      <div class="md:sticky md:top-0 md:h-screen w-full overflow-hidden flex items-center justify-center pt-24 md:pt-0">
 
 
-        <div class="relative w-full max-w-6xl h-full px-4">
+        <div class="relative w-full max-w-6xl h-auto md:h-full px-4">
+
 
           <div id="scene-hero"
-            class="absolute inset-0 grid md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-10 items-center h-full w-full pointer-events-none">
-
+            class="grid md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-10 items-center w-full h-full md:absolute md:inset-0 pointer-events-none">
+            
             <div id="hero-text" class="space-y-6 lg:space-y-6 pointer-events-auto will-change-transform">
               <div>
                 <h1 class="font-display text-3xl sm:text-4xl md:text-4xl font-extrabold leading-tight tracking-tight">
@@ -115,7 +116,7 @@
           </div>
 
           <div id="scene-services"
-            class="absolute inset-0 grid md:grid-cols-2 gap-6 items-center h-full w-full pointer-events-none opacity-0 will-change-transform">
+  class="grid md:grid-cols-2 gap-6 items-center w-full h-full md:absolute md:inset-0 pointer-events-none md:opacity-0 opacity-100 will-change-transform">
 
             <div class="relative flex items-center justify-start order-last md:order-first">
               <div id="services-camion"
@@ -318,7 +319,7 @@
     </section>
 
     <section id="contact" class="border-t border-white/10 bg-darkSoft">
-      <div class="max-w-6xl mx-auto px-4 py-12 md:py-16">
+      < mx-auto px-4 py-12 md:py-16">
         <div class="grid md:grid-cols-[1.2fr,1fr] gap-10">
 
           <div>
