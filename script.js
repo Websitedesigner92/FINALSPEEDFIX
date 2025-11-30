@@ -16,57 +16,73 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
   }
 
-  window.addEventListener('scroll', () => {
-    if (!scrollTrack) return;
+  // 👉 On n'active l'animation que sur écran ≥ 768px
+  const isDesktop = window.innerWidth >= 768;
 
-    const rect = scrollTrack.getBoundingClientRect();
-    const trackHeight = scrollTrack.offsetHeight - window.innerHeight;
-    let progress = (0 - rect.top) / trackHeight;
+  if (isDesktop && scrollTrack) {
+    window.addEventListener('scroll', () => {
 
-    if (progress < 0) progress = 0;
-    if (progress > 1) progress = 1;
+      const rect = scrollTrack.getBoundingClientRect();
+      const trackHeight = scrollTrack.offsetHeight - window.innerHeight;
+      let progress = (0 - rect.top) / trackHeight;
 
-     const isDesktop = window.innerWidth >= 768;
-    // Echelle du camion
-    const baseScale = isDesktop ? 1.5 : 1.2; // Ajusté pour mobile
+      if (progress < 0) progress = 0;
+      if (progress > 1) progress = 1;
 
-    // --- PHASE 1 : DÉPART HERO (0% -> 50%) ---
-    let exitProgress = progress * 1;
-    if (exitProgress > 1) exitProgress = 1;
+      // Echelle du camion (uniquement desktop)
+      const baseScale = 1.5;
 
-    const heroMoveX_Text = exitProgress * -1000;
-    const heroMoveX_Camion = exitProgress * 1500;
-    const heroOpacity = 1 - (exitProgress * 1.5);
+      // --- PHASE 1 : DÉPART HERO (0% -> 100%) ---
+      let exitProgress = progress * 1;
+      if (exitProgress > 1) exitProgress = 1;
 
-    if (sceneHero) {
-      heroText.style.transform = `translateX(${heroMoveX_Text}px)`;
-      heroText.style.opacity = Math.max(0, heroOpacity);
+      const heroMoveX_Text = exitProgress * -1000;
+      const heroMoveX_Camion = exitProgress * 1500;
+      const heroOpacity = 1 - (exitProgress * 1.5);
 
-      heroCamion.style.transform = `translateX(${heroMoveX_Camion}px) scale(${baseScale})`;
-      heroCamion.style.opacity = Math.max(0, heroOpacity);
+      if (sceneHero && heroText && heroCamion) {
+        heroText.style.transform = `translateX(${heroMoveX_Text}px)`;
+        heroText.style.opacity = Math.max(0, heroOpacity);
+
+        heroCamion.style.transform = `translateX(${heroMoveX_Camion}px) scale(${baseScale})`;
+        heroCamion.style.opacity = Math.max(0, heroOpacity);
+      }
+
+      // --- PHASE 2 : ARRIVÉE SERVICES (20% -> 100%) ---
+      let enterStart = 0.2;
+      let enterEnd = 1;
+      let enterProgress = (progress - enterStart) / (enterEnd - enterStart);
+      if (enterProgress < 0) enterProgress = 0;
+      if (enterProgress > 1) enterProgress = 1;
+
+      const servicesMoveX = 1200 - (enterProgress * 1200);
+      const dashboardMoveY = 1000 - (enterProgress * 1000);
+
+      if (sceneServices && servicesCamion && servicesDashboard) {
+        sceneServices.style.opacity = enterProgress;
+        servicesCamion.style.transform = `translateX(${servicesMoveX}px) scale(${baseScale})`;
+        servicesDashboard.style.transform = `translateY(${dashboardMoveY}px)`;
+      }
+    });
+
+    // On force un premier calcul à l'ouverture
+    window.dispatchEvent(new Event('scroll'));
+
+  } else {
+    // 👉 Sur mobile : on s’assure qu’il n’y a pas de styles bizarres
+    if (sceneHero && heroText && heroCamion) {
+      heroText.style.transform = '';
+      heroText.style.opacity = '';
+      heroCamion.style.transform = '';
+      heroCamion.style.opacity = '';
     }
-
-    // --- PHASE 2 : ARRIVÉE SERVICES (20% -> 100%) ---
-    let enterStart = 0.2;
-    let enterEnd = 1;
-    let enterProgress = (progress - enterStart) / (enterEnd - enterStart);
-    if (enterProgress < 0) enterProgress = 0;
-    if (enterProgress > 1) enterProgress = 1;
-
-    const servicesMoveX = 1200 - (enterProgress * 1200);
-    const dashboardMoveY = 1000 - (enterProgress * 1000);
-
-    if (sceneServices) {
-      sceneServices.style.opacity = enterProgress;
-      // Le camion arrive de la droite
-      servicesCamion.style.transform = `translateX(${servicesMoveX}px) scale(${baseScale})`;
-      // Le dashboard monte
-      servicesDashboard.style.transform = `translateY(${dashboardMoveY}px)`;
+    if (sceneServices && servicesCamion && servicesDashboard) {
+      sceneServices.style.opacity = '';
+      servicesCamion.style.transform = '';
+      servicesDashboard.style.transform = '';
     }
-  });
+  }
 });
-
-
 
 
 /// calcul des pour le simulateur de tarifs
@@ -122,7 +138,10 @@ function update_Type_Probleme() {
     btn.classList.toggle("text-black", active);
     btn.classList.toggle("border-primary", active);
     if (active) btn.classList.remove("bg-white/5", "text-white/80");
-    else { btn.classList.add("bg-white/5", "text-white/80"); btn.classList.remove("text-black"); }
+    else {
+      btn.classList.add("bg-white/5", "text-white/80");
+      btn.classList.remove("text-black");
+    }
   });
 }
 
@@ -133,7 +152,10 @@ function update_Qualiter() {
     btn.classList.toggle("text-black", active);
     btn.classList.toggle("border-primary", active);
     if (active) btn.classList.remove("bg-white/5", "text-white/80");
-    else { btn.classList.add("bg-white/5", "text-white/80"); btn.classList.remove("text-black"); }
+    else {
+      btn.classList.add("bg-white/5", "text-white/80");
+      btn.classList.remove("text-black");
+    }
   });
 }
 
@@ -150,7 +172,10 @@ function Prix() {
   if (!serviceData) return;
   const price = serviceData[selectedQuality];
 
-  if (price == null) { priceValueEl.textContent = "-- €"; return; }
+  if (price == null) {
+    priceValueEl.textContent = "-- €";
+    return;
+  }
 
   priceValueEl.textContent = price + "€";
   const typeLabel = TYPE_LABELS[selectedType] || selectedType;
@@ -160,12 +185,26 @@ function Prix() {
 }
 
 Type_Probleme.forEach(btn => {
-  btn.addEventListener("click", () => { selectedType = btn.dataset.type; update_Type_Probleme(); Prix(); });
+  btn.addEventListener("click", () => {
+    selectedType = btn.dataset.type;
+    update_Type_Probleme();
+    Prix();
+  });
 });
+
 Qualiter.forEach(btn => {
-  btn.addEventListener("click", () => { selectedQuality = btn.dataset.quality; update_Qualiter(); Prix(); });
+  btn.addEventListener("click", () => {
+    selectedQuality = btn.dataset.quality;
+    update_Qualiter();
+    Prix();
+  });
 });
+
 if (Modele) {
-  Modele.addEventListener("change", e => { selectedModel = e.target.value; Prix(); });
+  Modele.addEventListener("change", e => {
+    selectedModel = e.target.value;
+    Prix();
+  });
 }
+
 loadTarifs();
