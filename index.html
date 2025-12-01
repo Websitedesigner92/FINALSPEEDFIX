@@ -6,9 +6,9 @@
   <title>SpeedFix – Réparation Smartphone à Domicile</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="./src/output.css">
-  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- <script>
+  <script>
     tailwind.config = {
       theme: {
         extend: {
@@ -24,7 +24,7 @@
         },
       },
     };
-  </script> -->
+  </script>
 
   <style>
     .speedfix-bg {
@@ -63,7 +63,7 @@
   <header class="fixed top-0 inset-x-0 z-30 border-b border-white/10 bg-dark/80 backdrop-blur">
     <div class="max-w-6xl mx-auto px-4 lg:px-4 h-16 flex items-center justify-between">
       <a href="#top" class="w-32 h-16 flex items-center relative lg:w-40 lg:scale-[150%]">
-        <img loading="lazy" src="./img/logo.webp" alt="SpeedFix"
+        <img src="./img/logo.png" alt="SpeedFix"
           class="object-contain hover:opacity-80 absolute lg:top-0 transition-opacity">
       </a>
 
@@ -73,17 +73,14 @@
         <a href="./pages/catalogue.html" class="hover:text-primary transition-colors">Catalogue</a>
       </nav>
 
-      <div class="flex items-center gap-3">
-
-        <button id="mobileMenuButton"
-          class="md:hidden w-9 h-9 rounded-full border border-white/15 flex items-center justify-center">
-          <span class="sr-only">Menu</span>
-          <div class="space-y-1.5">
-            <span class="block w-4 h-[2px] bg-white"></span>
-            <span class="block w-4 h-[2px] bg-white"></span>
-          </div>
-        </button>
-      </div>
+      <button id="mobileMenuButton"
+        class="md:hidden w-9 h-9 rounded-full border border-white/15 flex items-center justify-center">
+        <span class="sr-only">Menu</span>
+        <div class="space-y-1.5">
+          <span class="block w-4 h-[2px] bg-white"></span>
+          <span class="block w-4 h-[2px] bg-white"></span>
+        </div>
+      </button>
     </div>
 
     <div id="mobileMenu" class="md:hidden hidden border-t border-white/10 bg-dark">
@@ -119,7 +116,8 @@
                 bureau.
               </p>
               <div class="flex mt-4 flex-wrap items-center gap-3">
-                <a href="#form-services"
+                <!-- BOUTON RDV AVEC ID POUR L'ANIMATION -->
+                <a href="#form-services" id="btn-rdv-hero"
                   class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-primary text-xs md:text-sm font-semibold uppercase tracking-[0.18em] hover:bg-primary/90 transition">
                   Prendre RDV
                 </a>
@@ -129,7 +127,7 @@
             <div class="relative flex items-center justify-center w-full h-full">
               <div id="hero-camion"
                 class="relative w-full max-w-[450px]  sm:scale-95 md:scale-150 will-change-transform">
-                <img loading="lazy" src="./canva/2_1.webp" class="w-full h-auto object-contain drop-shadow-2xl" alt="Camion SpeedFix" />
+                <img src="./canva/2_1.png" class="w-full h-auto object-contain drop-shadow-2xl" alt="Camion SpeedFix" />
               </div>
             </div>
 
@@ -141,8 +139,8 @@
 
             <div class="relative flex items-center justify-start order-last md:order-first">
               <div id="services-camion"
-                class="relative w-full max-w-[450px]  sm:scale-125 md:scale-150 will-change-transform">
-                <img loading="lazy" src="./canva/2.webp" class="w-full h-auto object-contain" alt="Camion SpeedFix Services" />
+                class="relative w-full max-w-[450px] scale-110 sm:scale-125 md:scale-150 will-change-transform">
+                <img src="./canva/2.png" class="w-full h-auto object-contain" alt="Camion SpeedFix Services" />
               </div>
             </div>
 
@@ -160,7 +158,7 @@
                   class="group relative flex items-center gap-6 p-6 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-primary/50 hover:scale-105 transition-all cursor-pointer backdrop-blur-sm">
                   <div
                     class="w-12 h-12 rounded-full bg-black/40 flex items-center justify-center border border-white/5 group-hover:bg-primary/20 transition-colors">
-                    <img loading="lazy" src="./img/vitre_casse_1.webp" class="w-6 h-6 object-contain" alt="Écran cassé">
+                    <img src="./img/vitre_casse.png" class="w-6 h-6 object-contain" alt="Écran cassé">
                   </div>
                   <div>
                     <h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors">
@@ -177,7 +175,7 @@
                   class="group relative flex items-center gap-6 p-6 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-green-500/50 hover:scale-105 transition-all cursor-pointer backdrop-blur-sm">
                   <div
                     class="w-12 h-12 rounded-full bg-black/40 flex items-center justify-center border border-white/5 group-hover:bg-green-500/20 transition-colors">
-                    <img loading="lazy" src="./img/batterie_hs.webp" class="w-6 h-6 object-contain" alt="Batterie HS">
+                    <img src="./img/batterie_hs.png" class="w-6 h-6 object-contain" alt="Batterie HS">
                   </div>
                   <div>
                     <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition-colors">
@@ -194,7 +192,7 @@
                   class="group relative flex items-center gap-6 p-6 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-blue-500/50 hover:scale-105 transition-all cursor-pointer backdrop-blur-sm">
                   <div
                     class="w-12 h-12 rounded-full bg-black/40 flex items-center justify-center border border-white/5 group-hover:bg-blue-500/20 transition-colors">
-                    <img  loading="lazy" src="./img/chassis_hs.webp" class="w-6 h-6 object-contain" alt="Châssis HS">
+                    <img src="./img/chassis_hs.png " class="w-6 h-6 object-contain" alt="Châssis HS">
                   </div>
                   <div>
                     <h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
@@ -401,21 +399,16 @@
 
               <div>
                 <label class="block text-[11px] font-medium text-white/70 mb-1">Modèle du smartphone</label>
-                <input type="text" id="contact-model" name="modele" placeholder="Ex : IPhone 12, Iphone 16 ..."
+                <input type="text" id="contact-model" name="modele" placeholder="Ex : iPhone 12, Samsung S21..."
                   class="w-full px-3 py-2 rounded-2xl bg-black/60 border border-white/15 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/60 transition-all" />
               </div>
 
               <div>
                 <label class="block text-[11px] font-medium text-white/70 mb-1">Problème rencontré</label>
-                <textarea id="contact-issue" name="message" rows="3" 
+                <textarea id="contact-issue" name="message" rows="3"
+                  oninput="autoResize(this)"
                   class="w-full h-auto px-3 py-2 rounded-2xl bg-black/60 border border-white/15 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/60 transition-all"
                   placeholder="Décrivez le problème..."></textarea>
-              </div>
-              <div>
-                <label class="block text-[11px] font-medium text-white/70 mb-1">Accessoires</label>
-                <textarea id="contact-accessories" name="accessories" rows="3"
-                  class="w-full h-auto px-3 py-2 rounded-2xl bg-black/60 border border-white/15 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/60 transition-all"
-                  placeholder="Ajoutez les accessoires..."></textarea>
               </div>
 
               <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
@@ -459,7 +452,6 @@
       </div>
     </section>
 
-
   </main>
 
   <footer class="border-t border-white/10 bg-black/90">
@@ -481,11 +473,52 @@
       </path>
     </svg>
   </a>
-  
+
 
 </body>
-  <script src="./script/main.js"></script>
-  <script src="./script/scroll.js"></script>
-  <script src="./script/catalogue.js"></script>
-  <script src="./script/tarif.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const btn = document.querySelector('a[href="#form-services"]');
+  const sceneTrack = document.getElementById("scroll-track");
+  const sceneServices = document.getElementById("scene-services");
+
+  if (!btn || !sceneTrack || !sceneServices) return;
+
+  btn.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    const rect = sceneTrack.getBoundingClientRect();
+    const sectionTop = rect.top + window.scrollY;
+    const maxScrollInside = rect.height - window.innerHeight;
+    const ratio = 1;
+
+    const targetY = sectionTop + Math.max(0, maxScrollInside * ratio);
+
+    // ----- SMOOTH SCROLL PERSONNALISÉ (LENT) -----
+    const duration = 1000; // ⬅️ Temps en ms (1.8 secondes) → ralentis ici !
+    const start = window.scrollY;
+    const change = targetY - start;
+    const startTime = performance.now();
+
+    function animateScroll(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1); // 0 → 1
+
+      // Courbe d’animation douce (easing)
+      const ease = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+
+      window.scrollTo(0, start + change * ease);
+
+      if (progress < 1) requestAnimationFrame(animateScroll);
+    }
+
+    requestAnimationFrame(animateScroll);
+  });
+});
+</script>
+
+<script src="./script/main.js"></script>
+<script src="./script/scroll.js"></script>
+<script src="./script/catalogue.js"></script>
+<script src="./script/tarif.js"></script>
 </html>
