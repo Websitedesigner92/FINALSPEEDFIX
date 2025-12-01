@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         card.innerHTML = `
             <div class="h-52 bg-gradient-to-b from-white/5 to-transparent p-6 flex items-center justify-center relative">
-              <img src="${product.image}" alt="${product.name}" class="h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-lg">
+              <img loading="lazy" src="${product.image}" alt="${product.name}" class="h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-lg">
               <div class="absolute top-3 right-3 bg-black/60 backdrop-blur px-3 py-1 rounded-lg border border-white/10 text-sm font-bold text-white">
                 ${product.price}
               </div>
@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       itemEl.innerHTML = `
           <div class="w-16 h-16 bg-white rounded-lg flex-shrink-0 p-1">
-            <img src="${item.image}" class="w-full h-full object-contain">
+            <img loading="lazy" src="${item.image}" class="w-full h-full object-contain">
           </div>
           
           <div class="flex-grow min-w-0">
