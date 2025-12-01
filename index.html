@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8" />
+  <title>SpeedFix – Réparation Smartphone à Domicile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./src/output.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#ef4444",
+            dark: "#020617",
+            darkSoft: "#020617",
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"],
+            display: ["Montserrat", "system-ui", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    .speedfix-bg {
+      background-image:
+        radial-gradient(circle at top left, rgba(239, 68, 68, 0.25), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(52, 211, 153, 0.2), transparent 55%);
+    }
+
+    .choices__inner {
+      background-color: rgba(0, 0, 0, 0.5) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      color: white !important;
+      border-radius: 0.75rem !important;
+    }
+
+    .choices__input {
+      background-color: transparent !important;
+      color: white !important;
+    }
+
+    .choices__list--dropdown {
+      background-color: #0f0f0f !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      color: white !important;
+    }
+
+    .choices__item--selectable.is-highlighted {
+      background-color: #ef4444 !important;
+    }
+  </style>
+</head>
+
+<body class="bg-dark text-white font-sans antialiased overflow-x-hidden">
+  <div id="toast-container" class="fixed top-24 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+  <!-- HEADER -->
+  <header class="fixed top-0 inset-x-0 z-30 border-b border-white/10 bg-dark/80 backdrop-blur">
+    <div class="max-w-6xl mx-auto px-4 lg:px-4 h-16 flex items-center justify-between">
+      <a href="#top" class="w-32 h-16 flex items-center relative lg:w-40 lg:scale-[150%]">
+        <img src="./img/logo.png" alt="SpeedFix"
+          class="object-contain hover:opacity-80 absolute lg:top-0 transition-opacity">
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-xs uppercase tracking-[0.16em] text-white/70">
+        <a href="#tarifs" class="hover:text-primary transition-colors">Tarifs</a>
+        <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
+        <a href="./pages/catalogue.html" class="hover:text-primary transition-colors">Catalogue</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="#scene-services"
+          class="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-full bg-primary text-xs font-semibold uppercase tracking-[0.16em] hover:bg-primary/90 transition">
+          Prendre RDV
+        </a>
+
+        <button id="mobileMenuButton"
+          class="md:hidden w-9 h-9 rounded-full border border-white/15 flex items-center justify-center">
+          <span class="sr-only">Menu</span>
+          <div class="space-y-1.5">
+            <span class="block w-4 h-[2px] bg-white"></span>
+            <span class="block w-4 h-[2px] bg-white"></span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="md:hidden hidden border-t border-white/10 bg-dark">
+      <nav class="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-3 text-xs uppercase tracking-[0.16em] text-white/80">
+        <a href="#tarifs" class="py-1">Tarifs</a>
+        <a href="#contact" class="py-1">Contact</a>
+        <a href="./pages/catalogue.html" class="py-1">Catalogue</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="speedfix-bg min-h-screen">
+
+    <!-- //-- SCROLLTELLING SECTION --// -->
+    <section id="scroll-track" class="relative min-h-screen md:h-[150vh]">
+      <div class="md:sticky md:top-0 md:h-screen w-full overflow-hidden flex items-center justify-center pt-24 md:pt-0">
+
+        <div class="relative w-full max-w-6xl h-auto md:h-full px-4">
+
+          <!-- SCENE HERO -->
+          <div id="scene-hero"
+            class="grid md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-10 items-center w-full h-full md:absolute md:inset-0 pointer-events-none">
+
+            <div id="hero-text" class="space-y-6 lg:space-y-6 pointer-events-auto will-change-transform">
+              <div>
+                <h1 class="font-display text-3xl sm:text-4xl md:text-4xl font-extrabold leading-tight tracking-tight">
+                  Votre <span class="text-primary">smartphone</span> est cassé ?<br />
+                  Nous avons la <span class="underline decoration-primary">solution </span>!
+                </h1>
+              </div>
+              <p class="mt-4 text-sm md:text-base text-white/70 max-w-xl">
+                Écran fissuré, batterie HS ? SpeedFix répare votre téléphone directement chez vous ou au
+                bureau.
+              </p>
+              <div class="flex mt-4 flex-wrap items-center gap-3">
+                <a href="#form-services"
+                  class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-primary text-xs md:text-sm font-semibold uppercase tracking-[0.18em] hover:bg-primary/90 transition">
+                  Prendre RDV
+                </a>
+              </div>
+            </div>
+
+            <div class="relative flex items-center justify-center w-full h-full">
+              <div id="hero-camion"
+                class="relative w-full max-w-[450px]  sm:scale-95 md:scale-150 will-change-transform">
+                <img src="./canva/2_1.png" class="w-full h-auto object-contain drop-shadow-2xl" alt="Camion SpeedFix" />
+              </div>
+            </div>
+
+          </div>
+
+          <!-- SCENE SERVICES -->
+          <div id="scene-services"
+            class="grid md:grid-cols-2 gap-6 items-center w-full h-full md:absolute md:inset-0 pointer-events-none md:opacity-0 opacity-100 will-change-transform">
+
+            <div class="relative flex items-center justify-start order-last md:order-first">
+              <div id="services-camion"
+                class="relative w-full max-w-[450px] scale-110 sm:scale-125 md:scale-150 will-change-transform">
+                <img src="./canva/2.png" class="w-full h-auto object-contain" alt="Camion SpeedFix Services" />
+              </div>
+            </div>
+
+            <div id="services-dashboard" class="pointer-events-auto translate-y-10 will-change-transform">
+              <div class="mb-8">
+                <span class="text-primary font-bold tracking-[0.2em] text-xs uppercase mb-2 block animate-pulse">Atelier
+                  Mobile</span>
+                <h2 class="text-3xl md:text-5xl font-display font-black uppercase leading-tight">
+                  On répare quoi <br><span class="text-white/40">aujourd'hui ?</span>
+                </h2>
+              </div>
+
+              <div class="grid grid-cols-1 gap-4" id="form-services">
+                <a href="#tarifs" onclick="selectServiceFromCard('ecran')"
+                  class="group relative flex items-center gap-6 p-6 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-primary/50 hover:scale-105 transition-all cursor-pointer backdrop-blur-sm">
+                  <div
+                    class="w-12 h-12 rounded-full bg-black/40 flex items-center justify-center border border-white/5 group-hover:bg-primary/20 transition-colors">
+                    <img src="./img/vitre_casse.png" class="w-6 h-6 object-contain" alt="Écran cassé">
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors">
+                      Mon écran est cassé</h3>
+                    <p class="text-xs text-white/50">Remplacement LCD, OLED ou vitre.</p>
+                  </div>
+                  <div
+                    class="absolute right-6 text-white/20 group-hover:text-primary group-hover:translate-x-2 transition-all">
+                    →
+                  </div>
+                </a>
+
+                <a href="#tarifs" onclick="selectServiceFromCard('batterie')"
+                  class="group relative flex items-center gap-6 p-6 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-green-500/50 hover:scale-105 transition-all cursor-pointer backdrop-blur-sm">
+                  <div
+                    class="w-12 h-12 rounded-full bg-black/40 flex items-center justify-center border border-white/5 group-hover:bg-green-500/20 transition-colors">
+                    <img src="./img/batterie_hs.png" class="w-6 h-6 object-contain" alt="Batterie HS">
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition-colors">
+                      Problème de batterie</h3>
+                    <p class="text-xs text-white/50">Votre téléphone se décharge vite ?</p>
+                  </div>
+                  <div
+                    class="absolute right-6 text-white/20 group-hover:text-green-400 group-hover:translate-x-2 transition-all">
+                    →
+                  </div>
+                </a>
+
+                <a href="#tarifs" onclick="selectServiceFromCard('chassis')"
+                  class="group relative flex items-center gap-6 p-6 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-blue-500/50 hover:scale-105 transition-all cursor-pointer backdrop-blur-sm">
+                  <div
+                    class="w-12 h-12 rounded-full bg-black/40 flex items-center justify-center border border-white/5 group-hover:bg-blue-500/20 transition-colors">
+                    <img src="./img/chassis_hs.png " class="w-6 h-6 object-contain" alt="Châssis HS">
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                      Châssis / Vitre AR</h3>
+                    <p class="text-xs text-white/50">Châssis, connecteur, caméras...</p>
+                  </div>
+                  <div
+                    class="absolute right-6 text-white/20 group-hover:text-blue-400 group-hover:translate-x-2 transition-all">
+                    →
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- //-- TARIFS SECTION --// -->
+    <section id="tarifs" class="py-20 relative overflow-hidden">
+      <div
+        class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 blur-[120px] rounded-full pointer-events-none">
+      </div>
+
+      <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <div class="mb-12">
+          <span class="text-primary font-bold tracking-[0.2em] text-xs uppercase mb-2 block">Transparence totale</span>
+          <h2 class="text-3xl md:text-5xl font-display font-black uppercase tracking-tight">
+            Estimez votre <span class="text-white/50">réparation</span>
+          </h2>
+        </div>
+
+        <div class="rounded-[2rem] bg-dark/80 border border-white/10 backdrop-blur-xl overflow-hidden shadow-2xl">
+          <div class="grid lg:grid-cols-[1.5fr,1fr]">
+
+            <div class="p-8 md:p-12 flex flex-col gap-10">
+
+              <div class="space-y-4">
+                <label class="text-xs font-bold uppercase tracking-widest text-white/50">1. Quel est le problème
+                  ?</label>
+                <div id="typeButtons" class="grid grid-cols-3 gap-4">
+                  <button type="button" data-type="ecran"
+                    class="group flex flex-col items-center justify-center gap-3 p-4 h-32 rounded-2xl border border-white/10 bg-white/5 text-white/80 transition-all hover:border-primary/50 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50">
+                    <span class="text-2xl opacity-70 group-hover:opacity-100 transition-opacity">📱</span>
+                    <span class="text-xs font-bold uppercase tracking-wider">Écran</span>
+                  </button>
+
+                  <button type="button" data-type="batterie"
+                    class="group flex flex-col items-center justify-center gap-3 p-4 h-32 rounded-2xl border border-white/10 bg-white/5 text-white/80 transition-all hover:border-green-500/50 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-green-500/50">
+                    <span class="text-2xl opacity-70 group-hover:opacity-100 transition-opacity">🔋</span>
+                    <span class="text-xs font-bold uppercase tracking-wider">Batterie</span>
+                  </button>
+
+                  <button type="button" data-type="chassis"
+                    class="group flex flex-col items-center justify-center gap-3 p-4 h-32 rounded-2xl border border-white/10 bg-white/5 text-white/80 transition-all hover:border-blue-500/50 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                    <span class="text-2xl opacity-70 group-hover:opacity-100 transition-opacity">🔧</span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-center">Châssis<br>Vitre AR</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <label for="deviceModel" class="text-xs font-bold uppercase tracking-widest text-white/50">2. Votre
+                  modèle</label>
+                <div class="relative">
+                  <select id="deviceModel"
+                    class="w-full appearance-none bg-black/50 border border-white/10 rounded-xl px-6 py-4 text-sm text-white outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all cursor-pointer">
+                    <option value="">Chargement des modèles...</option>
+                  </select>
+                  <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <label class="text-xs font-bold uppercase tracking-widest text-white/50">3. Gamme de pièce</label>
+                <div id="qualityButtons" class="grid grid-cols-2 gap-4">
+                  <button type="button" data-quality="eco"
+                    class="flex flex-col items-start p-4 rounded-xl border border-white/10 bg-white/5 text-white/80 text-left transition-all hover:bg-white/10 border-l-4 border-l-transparent hover:border-l-gray-400">
+                    <span class="text-sm font-bold uppercase mb-1">Éco</span>
+                    <span class="text-[10px] text-white/40 leading-tight">Pièce générique de bonne facture, idéale pour
+                      les petits budgets.</span>
+                  </button>
+
+                  <button type="button" data-quality="premium"
+                    class="flex flex-col items-start p-4 rounded-xl border border-white/10 bg-white/5 text-white/80 text-left transition-all hover:bg-white/10 border-l-4 border-l-transparent hover:border-l-primary">
+                    <span class="text-sm font-bold uppercase mb-1">Premium </span>
+                    <span class="text-[10px] text-white/40 leading-tight">Écrans premium haute qualité, fidèles à
+                      l’affichage d'origine.</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            <div
+              class="bg-white/5 border-t lg:border-t-0 lg:border-l border-white/10 p-8 md:p-12 flex flex-col justify-between relative">
+              <div class="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none"></div>
+
+              <div class="relative z-10 space-y-6">
+                <div>
+                  <h3 class="font-display text-2xl font-bold text-white mb-2">Devis estimatif</h3>
+                  <p class="text-sm text-white/50" id="priceDetail">Sélectionnez vos options pour voir le prix.</p>
+                </div>
+
+                <div class="py-8 border-y border-white/10">
+                  <div class="text-xs font-bold uppercase tracking-widest text-primary mb-2">Prix total</div>
+                  <div id="priceValue" class="text-5xl md:text-6xl font-black text-white tracking-tight">-- €</div>
+                  <div class="text-[10px] text-white/40 mt-2">* Déplacement à prévoir</div>
+                </div>
+
+                <ul class="space-y-3">
+                  <li class="flex items-center gap-3 text-sm text-white/70">
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Déplacement gratuit sur Argenteuil (95)
+                  </li>
+                  <li class="flex items-center gap-3 text-sm text-white/70">
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Pieces garanties
+                  </li>
+                </ul>
+              </div>
+
+              <div class="relative z-10 mt-8">
+                <a href="#contact" id="reserveButton"
+                  class="block w-full py-4 rounded-xl bg-white text-dark font-bold uppercase tracking-widest text-center hover:bg-gray-200 transition-colors shadow-lg hover:shadow-white/20">
+                  Réserver un créneau
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="border-t border-white/10 bg-darkSoft">
+      <div class="max-w-6xl mx-auto px-4 py-12 md:py-16">
+        <div class="grid md:grid-cols-[1.2fr,1fr] gap-10">
+
+          <div>
+            <p
+              class="inline-block px-3 py-1 rounded-full bg-black border border-white/15 text-[11px] uppercase tracking-[0.18em] text-white/80 mb-2">
+              Contact</p>
+            <h2 class="font-display text-2xl md:text-3xl font-extrabold tracking-tight mb-3">Prendre rendez-vous</h2>
+            <p class="text-sm md:text-base text-white/70 mb-6 max-w-xl">
+              Les détails de votre simulation seront automatiquement inclus dans votre demande ci-contre.
+            </p>
+
+            <div class="space-y-3 text-sm text-white/75 bg-white/5 p-6 rounded-2xl border border-white/10">
+              <p class="flex items-center gap-3">
+                <span class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center text-xs">📞</span>
+                <span>06 63 66 96 05</span>
+              </p>
+              <p class="flex items-center gap-3">
+                <span class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center text-xs">💬</span>
+                <span>WhatsApp disponible</span>
+              </p>
+              <p class="flex items-center gap-3">
+                <span class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center text-xs">✉️</span>
+                <span>contact@speedfix.fr</span>
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <form id="contactForm"
+              class="space-y-4 bg-black/60 border border-white/10 rounded-3xl p-5 md:p-6 shadow-xl">
+
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-[11px] font-medium text-white/70 mb-1">Nom</label>
+                  <input type="text" name="nom" required
+                    class="w-full px-3 py-2 rounded-2xl bg-black/60 border border-white/15 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/60 transition-all" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-medium text-white/70 mb-1">Prénom</label>
+                  <input type="text" name="prenom" required
+                    class="w-full px-3 py-2 rounded-2xl bg-black/60 border border-white/15 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/60 transition-all" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-[11px] font-medium text-white/70 mb-1">Adresse</label>
+                  <input type="text" name="adresse" required
+                    class="w-full px-3 py-2 rounded-2xl bg-black/60 border border-white/15 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/60 transition-all" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-medium text-white/70 mb-1">Numéro de téléphone</label>
+                  <input type="tel" name="phone" required
+                    class="w-full px-3 py-2 rounded-2xl bg-black/60 border border-white/15 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/60 transition-all" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-medium text-white/70 mb-1">Modèle du smartphone</label>
+                <input type="text" id="contact-model" name="modele" placeholder="Ex : iPhone 12, Samsung S21..."
+                  class="w-full px-3 py-2 rounded-2xl bg-black/60 border border-white/15 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/60 transition-all" />
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-medium text-white/70 mb-1">Problème rencontré</label>
+                <textarea id="contact-issue" name="message" rows="3"
+                  oninput="autoResize(this)"
+                  class="w-full h-auto px-3 py-2 rounded-2xl bg-black/60 border border-white/15 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/60 transition-all"
+                  placeholder="Décrivez le problème..."></textarea>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+                <label class="block text-[11px] font-medium text-white/70 mb-2">Recopiez le code de
+                  l'image</label>
+
+                <div class="flex items-center gap-3 mb-3">
+                  <canvas id="captcha-canvas" width="140" height="50" class="rounded-xl bg-white cursor-pointer"
+                    onclick="generateCaptcha()" title="Cliquer pour changer le code"></canvas>
+
+                  <button type="button" onclick="generateCaptcha()"
+                    class="p-2 rounded-full hover:bg-white/10 text-white/50 hover:text-primary transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+                      </path>
+                    </svg>
+                  </button>
+                </div>
+
+                <input type="text" id="captcha-answer" required placeholder="Entrez les caractères..."
+                  class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/15 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/60 transition-all uppercase tracking-widest font-bold" />
+
+                <p id="captcha-error" class="text-red-500 text-[10px] mt-1 hidden">Code incorrect, veuillez réessayer.
+                </p>
+              </div>
+
+              <div class="w-full inline-flex gap-4 mb-4">
+                <button type="submit"
+                  class="w-1/2 flex items-center justify-center px-4 py-3 rounded-full bg-primary text-xs font-bold uppercase tracking-[0.18em] hover:bg-primary/90 transition shadow-lg shadow-primary/20">
+                  Envoyer la demande
+                </button>
+                <button type="reset"
+                  class="w-1/2 flex items-center justify-center px-4 py-3 rounded-full bg-primary text-xs font-bold uppercase tracking-[0.18em] hover:bg-primary/90 transition shadow-lg shadow-primary/20">
+                  Reset
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-white/10 bg-black/90">
+    <div
+      class="max-w-6xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-[11px] text-white/55">
+      <p>© 2025 SPEEDFIX. Tous droits réservés.</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="#" class="hover:text-primary transition-colors">Mentions légales</a>
+        <a href="#" class="hover:text-primary transition-colors">CGV</a>
+        <a href="#" class="hover:text-primary transition-colors">Politique de confidentialité</a>
+      </div>
+    </div>
+  </footer>
+  <a href="tel:0663669605"
+    class="md:hidden fixed bottom-6 right-6 z-50 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/40  hover:scale-110 ">
+    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+      </path>
+    </svg>
+  </a>
+  
+
+</body>
+<script>
+  function autoResize(el) {
+    el.style.height = "auto";
+    el.style.height = el.scrollHeight + "px";
+  }
+</script>
+  <script src="./script/main.js"></script>
+  <script src="./script/scroll.js"></script>
+  <script src="./script/catalogue.js"></script>
+  <script src="./script/tarif.js"></script>
+</html>

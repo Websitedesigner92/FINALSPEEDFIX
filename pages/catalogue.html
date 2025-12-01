@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>SpeedFix – Boutique & Accessoires</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="../src/output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#ef4444",
+                        dark: "#020617",
+                        darkSoft: "#0f0f0f",
+                    },
+                    fontFamily: {
+                        sans: ["Inter", "system-ui", "sans-serif"],
+                        display: ["Montserrat", "system-ui", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+
+    <style>
+        .hamburger-line {
+            transition: all 0.3s ease-in-out;
+            transform-origin: center;
+        }
+
+        /* État actif (Croix) */
+        button.active .line-top {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        button.active .line-bottom {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        .speedfix-bg {
+            background-image:
+                radial-gradient(circle at top left, rgba(239, 68, 68, 0.25), transparent 60%),
+                radial-gradient(circle at bottom right, rgba(52, 211, 153, 0.2), transparent 55%);
+            background-color: #020617;
+        }
+
+        /* Animation pour l'apparition du panier */
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .cart-slide-in {
+            animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+
+<body class="bg-dark text-white font-sans antialiased overflow-x-hidden flex flex-col min-h-screen">
+
+    <header class="fixed top-0 inset-x-0 z-40 border-b border-white/10 bg-dark/80 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between relative z-50 bg-dark/80 backdrop-blur-md">
+            
+            <a href="../index.html" class="w-32 h-16 flex items-center relative lg:w-40 lg:scale-[150%]">
+                <img src="../img/logo.png" alt="SpeedFix" class="object-contain hover:opacity-80 transition-opacity">
+            </a>
+
+            <nav class="hidden md:flex items-center gap-6 text-xs uppercase tracking-[0.16em] text-white/70">
+                <a href="../index.html" class="hover:text-primary transition-colors">Accueil</a>
+                <a href="../index.html#tarifs" class="hover:text-primary transition-colors">Tarifs</a>
+                <span class="text-primary font-bold border-b border-primary">Boutique</span>
+            </nav>
+
+            <button id="mobileMenuButton" aria-label="Ouvrir le menu" aria-expanded="false"
+                class="md:hidden w-10 h-10 flex flex-col justify-center items-center gap-1.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors group">
+                <span class="hamburger-line line-top block w-5 h-[2px] bg-white group-hover:bg-primary transition-colors"></span>
+                <span class="hamburger-line line-bottom block w-5 h-[2px] bg-white group-hover:bg-primary transition-colors"></span>
+            </button>
+        </div>
+
+        <div id="mobileMenu" class="md:hidden hidden absolute top-16 left-0 w-full h-screen bg-dark/95 backdrop-blur-xl border-t border-white/10 transition-all duration-300">
+            <nav class="flex flex-col items-center justify-center pt-10 gap-8 text-sm uppercase tracking-[0.2em] font-bold text-white">
+                
+                <a href="../index.html" class="py-4 w-full text-center hover:bg-white/5 hover:text-primary transition-colors border-b border-white/5">
+                    Accueil
+                </a>
+                
+                <a href="../index.html#tarifs" class="py-4 w-full text-center hover:bg-white/5 hover:text-primary transition-colors border-b border-white/5">
+                    Tarifs
+                </a>
+                
+                <a href="../index.html#contact" class="py-4 w-full text-center hover:bg-white/5 hover:text-primary transition-colors border-b border-white/5">
+                    Contact
+                </a>
+
+                <span class="py-4 text-primary w-full text-center bg-white/5">
+                    Boutique
+                </span>
+
+            </nav>
+        </div>
+    </header>
+
+    <main class="speedfix-bg flex-grow pt-28 pb-20">
+        <section id="boutique" class="relative">
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+
+                <div class="mb-12 text-center md:text-left">
+                    <span class="text-primary font-bold tracking-[0.2em] text-xs uppercase mb-2 block">Nos
+                        Produits</span>
+                    <h2 class="text-3xl md:text-5xl font-display font-black uppercase tracking-tight">
+                        Accessoires & <span class="text-white/50">Vente</span>
+                    </h2>
+                    <p class="text-white/60 mt-4 max-w-2xl mx-auto md:mx-0">
+                        Sélectionnez vos accessoires, nous les apportons lors de votre réparation.
+                    </p>
+                </div>
+
+                <div id="shop-container" class="min-h-[400px]">
+                    <div class="animate-pulse flex flex-col items-center justify-center h-64 text-white/50">
+                        <svg class="w-10 h-10 animate-spin mb-4" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
+                        </svg>
+                        Chargement de la boutique...
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <button id="cart-fab" onclick="openCartModal()"
+        class="fixed bottom-6 right-6 z-40 bg-primary text-white px-6 py-4 rounded-full shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-3 translate-y-20 opacity-0">
+        <div class="relative">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                </path>
+            </svg>
+            <span id="fab-cart-count"
+                class="absolute -top-2 -right-2 bg-white text-primary text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center border border-primary">0</span>
+        </div>
+        <span class="font-bold uppercase tracking-wider text-sm">Voir mon panier</span>
+    </button>
+
+    <div id="cart-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog"
+        aria-modal="true">
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity opacity-0" id="modal-backdrop"
+            onclick="closeCartModal()"></div>
+
+        <div class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-darkSoft border-l border-white/10 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col"
+            id="modal-panel">
+
+            <div class="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-dark/50">
+                <h2 class="text-xl font-display font-bold text-white flex items-center gap-2">
+                    <span>🛍️</span> Votre Panier
+                </h2>
+                <button type="button" onclick="closeCartModal()"
+                    class="text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-6" id="cart-items-container">
+                <div class="text-center text-white/40 mt-10">
+                    <p>Votre panier est vide 😢</p>
+                    <button onclick="closeCartModal()" class="mt-4 text-primary underline text-sm">Continuer mes
+                        achats</button>
+                </div>
+            </div>
+
+            <div class="p-6 border-t border-white/10 bg-dark/50 space-y-4">
+                <div class="flex justify-between items-end">
+                    <span class="text-sm text-white/60 uppercase tracking-widest">Total estimé</span>
+                    <span id="cart-total-price" class="text-3xl font-bold text-white">0€</span>
+                </div>
+
+                <button onclick="confirmOrder()" id="checkout-btn" disabled
+                    class="w-full py-4 rounded-xl bg-primary text-white font-bold uppercase tracking-widest hover:bg-red-500 transition-colors shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                    Valider ma commande
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    const mobileBtn = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', () => {
+            // Basculer la visibilité du menu
+            mobileMenu.classList.toggle('hidden');
+            
+            // Basculer l'animation du bouton
+            mobileBtn.classList.toggle('active');
+
+            // Gérer l'accessibilité (Aria)
+            const isExpanded = mobileBtn.getAttribute('aria-expanded') === 'true';
+            mobileBtn.setAttribute('aria-expanded', !isExpanded);
+            mobileBtn.setAttribute('aria-label', isExpanded ? 'Ouvrir le menu' : 'Fermer le menu');
+        });
+    }
+</script>
+<script src="../script/main.js"></script>
+<script src="../script/catalogue.js"></script>
+
+</html>

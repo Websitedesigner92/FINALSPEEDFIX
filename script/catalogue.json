@@ -1,0 +1,52 @@
+{
+  "categories": [
+    {
+      "id": "protection",
+      "title": "Protections & Verres",
+      "products": [
+        {
+          "name": "Verre Trempé ",
+          "description": "Protection 9H ultra-résistante, anti-rayures.",
+          "price": "15€",
+          "image": "./img/verre_trempe.png"
+        },
+        {
+          "name": "Verre Trempé Espion",
+          "description": "Confidentialité renforcée, anti-regard.",
+          "price": "15€",
+          "image": "./img/verre_trempe.png"
+        },
+        {
+          "name": "Coque Silicone ",
+          "description": "Protection antichoc, coins renforcés.",
+          "price": "20€",
+          "image": "./img/coque_silicone.png"
+        }
+      ]
+    },
+    {
+      "id": "energie",
+      "title": "Câbles",
+      "products": [
+        {
+          "name": "Batterie Externe 10000mAh",
+          "description": "Charge rapide, compacte, 2 ports USB.",
+          "price": "35€",
+          "image": "./img/batterie_externe.png"
+        },
+        {
+          "name": "Câble Lightning Certifié",
+          "description": "1 mètre,  ultra solide.",
+          "price": "12€",
+          "image": "./img/cable.png"
+        },
+        {
+          "name": "Chargeur Rapide 20W",
+          "description": "Prise secteur USB-C Power Delivery.",
+          "price": "19€",
+          "image": "./img/cahrgeur_rapide.png"
+        }
+      ]
+    }
+  ]
+}
