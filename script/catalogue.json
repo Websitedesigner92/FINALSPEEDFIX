@@ -7,7 +7,7 @@
         {
           "name": "Verre Trempé ",
           "description": "Protection 9H ultra-résistante, anti-rayures.",
-          "price": "15€",
+          "price": "10€",
           "image": "./img/verre_trempe.webp"
         },
         {
@@ -37,13 +37,13 @@
         {
           "name": "Câble Lightning Certifié",
           "description": "1 mètre,  ultra solide.",
-          "price": "12€",
+          "price": "15€",
           "image": "./img/cable.webp"
         },
         {
           "name": "Chargeur Rapide 20W",
           "description": "Prise secteur USB-C Power Delivery.",
-          "price": "19€",
+          "price": "25€",
           "image": "./img/cahrgeur_rapide.webp"
         }
       ]
