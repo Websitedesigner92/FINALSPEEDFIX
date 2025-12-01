@@ -22,28 +22,25 @@ window.showToast = function(message, type = 'success') {
 
 document.addEventListener("DOMContentLoaded", () => {
   // --- TRAITEMENT DU PANIER  ---
-  const contactIssue = document.getElementById('contact-issue');
+  const contactAccessories = document.getElementById('contact-accessories');
 
   const cart = JSON.parse(localStorage.getItem('speedfix_cart')) || [];
 
-  if (cart.length > 0 && contactIssue) {
+  if (cart.length > 0 && contactAccessories) {
   
-    let cartText = "\n\n🛍️ MA COMMANDE ACCESSOIRES :";
+    let cartText = "MA COMMANDE ACCESSOIRES :";
  
     
     cart.forEach(item => {
-        cartText += `\n- ${item.name} (${item.price})`;
+        cartText += `\n- ${item.name} (${item.qty})`;
         
     });
 
     
     // On vérifie si le champ est vide ou non
-    if (contactIssue.value.trim() === "") {
-        contactIssue.value = "Bonjour," + cartText;
-    } else {
-        
-        contactIssue.value = contactIssue.value + cartText;
-    }
+
+      contactAccessories.value = contactAccessories.value + cartText;
+      contactAccessories.style.height = contactAccessories.scrollHeight + 'px';
 
     
     localStorage.removeItem('speedfix_cart');
