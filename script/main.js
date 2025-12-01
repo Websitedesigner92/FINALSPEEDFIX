@@ -1,4 +1,4 @@
-// --- FONCTION  (Notifications) ---
+// --- FONCTION TOAST (Notifications) ---
 window.showToast = function(message, type = 'success') {
   const container = document.getElementById('toast-container');
   if(!container) return;
@@ -17,32 +17,64 @@ window.showToast = function(message, type = 'success') {
   }, 2000);
 };
 
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
-  // --- TRAITEMENT DU PANIER  ---
+  const contactForm = document.getElementById("contactForm");
   const contactAccessories = document.getElementById('contact-accessories');
 
+  // --- (LocalStorage) ---
+  if (contactForm) {
+    const inputs = contactForm.querySelectorAll('input, textarea');
+    
+    inputs.forEach(input => {
+      
+      if(input.id === 'captcha-answer') return;
+
+      // A. Charger la valeur sauvegardée au démarrage
+      const savedValue = localStorage.getItem('autosave_' + input.name);
+      if (savedValue) {
+        input.value = savedValue;
+        // Ajuster hauteur si c'est un textarea
+        if(input.tagName === 'TEXTAREA') {
+             input.style.height = "auto";
+             input.style.height = input.scrollHeight + "px";
+        }
+      }
+
+      
+      input.addEventListener('input', () => {
+        localStorage.setItem('autosave_' + input.name, input.value);
+      });
+    });
+
+    // "Reset"
+    contactForm.addEventListener('reset', () => {
+      inputs.forEach(input => localStorage.removeItem('autosave_' + input.name));
+      setTimeout(() => showToast("Formulaire effacé", "success"), 100);
+    });
+  }
+
+  // --- 2. AJOUT DU PANIER AU FORMULAIRE ---
   const cart = JSON.parse(localStorage.getItem('speedfix_cart')) || [];
 
   if (cart.length > 0 && contactAccessories) {
-  
     let cartText = "MA COMMANDE ACCESSOIRES :";
- 
     
     cart.forEach(item => {
         cartText += `\n- ${item.name} (${item.qty})`;
-        
     });
 
+    // Ajout au texte existant 
+    const prefix = contactAccessories.value ? "\n\n" : "";
+    contactAccessories.value = contactAccessories.value + prefix + cartText;
     
-    // On vérifie si le champ est vide ou non
-
-      contactAccessories.value = contactAccessories.value + cartText;
-      contactAccessories.style.height = contactAccessories.scrollHeight + 'px';
-
     
+    localStorage.setItem('autosave_' + contactAccessories.name, contactAccessories.value);
+    
+    // Ajustement visuel
+    contactAccessories.style.height = "auto";
+    contactAccessories.style.height = contactAccessories.scrollHeight + 'px';
+
+    // On vide le panier 
     localStorage.removeItem('speedfix_cart');
     
     setTimeout(() => {
@@ -50,16 +82,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 800);
   }
 
-
-  // --- 4. INIT CAPTCHA ---
-  const contactForm = document.getElementById("contactForm");
+  // --- 3. INIT CAPTCHA ---
   if (contactForm) {
     initCaptcha();
   }
 });
-
-
-
 
 // --- FONCTIONS CAPTCHA ---
 function initCaptcha() {
@@ -86,7 +113,7 @@ function initCaptcha() {
     ctx.fillRect(0, 0, width, height);
     const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
     captchaCode = "";
-    for (let i = 0; i < Math.random() * 4; i++) {
+    for (let i = 0; i < 4; i++) {
       const char = chars[Math.floor(Math.random() * chars.length)];
       captchaCode += char;
       ctx.save();
@@ -115,37 +142,56 @@ function initCaptcha() {
   contactForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const userAnswer = captchaAnswerInput.value.toUpperCase().trim();
+    
     if (userAnswer !== captchaCode) {
+      // ERREUR CAPTCHA
       captchaError.classList.remove("hidden");
       captchaAnswerInput.classList.add("border-red-500");
       showToast("Code de sécurité incorrect", "error");
       generateCaptcha();
       captchaAnswerInput.value = "";
     } else {
+      // SUCCÈS
       captchaError.classList.add("hidden");
       captchaAnswerInput.classList.remove("border-red-500");
+      
       showToast("Message envoyé avec succès !", "success");
+      
+      // NETTOYAGE COMPLET (Formulaire + LocalStorage)
       contactForm.reset();
+      const inputs = contactForm.querySelectorAll('input, textarea');
+      inputs.forEach(input => localStorage.removeItem('autosave_' + input.name));
+      
       generateCaptcha();
     }
   });
 }
 
-
+// Gestion du bouton Réserver (Page Tarifs)
 const reserveBtn = document.getElementById("reserveButton");
 if (reserveBtn) {
   reserveBtn.addEventListener("click", () => {
     const contactModel = document.getElementById("contact-model");
     const contactIssue = document.getElementById("contact-issue");
-    if (selectedModel && tarifsData && contactModel && contactIssue) {
-      const modelName = tarifsData.iphone[selectedModel].label;
-      const typeName = TYPE_LABELS[selectedType];
-      const qualityName = QUALITY_LABELS[selectedQuality];
-      
-      contactModel.value = modelName;
-      contactIssue.value = `Demande de réparation : ${typeName} (${qualityName}). Prix estimé : ${priceValueEl.textContent}`;
-      showToast("Réparation ajoutée au formulaire !", "success");
+    
+    // Vérification que les variables globales de tarif.js existent
+    if (typeof selectedModel !== 'undefined' && typeof tarifsData !== 'undefined' && contactModel && contactIssue) {
+        if(selectedModel && tarifsData.iphone[selectedModel]) {
+            const modelName = tarifsData.iphone[selectedModel].label;
+            const typeName = TYPE_LABELS[selectedType];
+            const qualityName = QUALITY_LABELS[selectedQuality];
+            const priceText = document.getElementById("priceValue") ? document.getElementById("priceValue").textContent : "-- €";
+            
+            contactModel.value = modelName;
+            const issueText = `Demande de réparation : ${typeName} (${qualityName}). Prix estimé : ${priceText}`;
+            contactIssue.value = issueText;
+
+            
+            if(contactModel.name) localStorage.setItem('autosave_' + contactModel.name, modelName);
+            if(contactIssue.name) localStorage.setItem('autosave_' + contactIssue.name, issueText);
+
+            showToast("Réparation ajoutée au formulaire !", "success");
+        }
     }
   });
 }
-
