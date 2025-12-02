@@ -410,7 +410,12 @@
                   class="w-full h-auto px-3 py-2 rounded-2xl bg-black/60 border border-white/15 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/60 transition-all"
                   placeholder="Décrivez le problème..."></textarea>
               </div>
-
+              <div>
+                <label class="block text-[11px] font-medium text-white/70 mb-1">Accessoires</label>
+                <textarea id="contact-accessories" name="accessories" rows="3"
+                  class="w-full h-auto px-3 py-2 rounded-2xl bg-black/60 border border-white/15 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/60 transition-all"
+                  placeholder="Ajoutez les accessoires..."></textarea>
+              </div>
               <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
                 <label class="block text-[11px] font-medium text-white/70 mb-2">Recopiez le code de
                   l'image</label>
@@ -476,52 +481,6 @@
 
 
 </body>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const btn = document.querySelector('a[href="#form-services"]');
-  const sceneTrack = document.getElementById("scroll-track");
-
-  if (!btn || !sceneTrack) return;
-
-  btn.addEventListener("click", function (e) {
-    e.preventDefault();
-
-    // Position de la section scroll-track
-    const rect = sceneTrack.getBoundingClientRect();
-    const sectionTop = rect.top + window.scrollY;
-    const maxScrollInside = rect.height - window.innerHeight;
-
-    // --- Ratio différent selon l'appareil ---
-    let ratio;
-    if (window.innerWidth < 768) {
-      ratio = 1.15;  // 📱 Téléphone → descend plus bas
-    } else {
-      ratio = 1;   // 🖥️ PC → valeur normale
-    }
-
-    const targetY = sectionTop + Math.max(0, maxScrollInside * ratio);
-
-    // ----- SMOOTH SCROLL LENT -----
-    const duration = 1000; // tu peux modifier pour changer la vitesse
-    const start = window.scrollY;
-    const change = targetY - start;
-    const startTime = performance.now();
-
-    function animateScroll(now) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 3); // easing
-
-      window.scrollTo(0, start + change * ease);
-
-      if (progress < 1) requestAnimationFrame(animateScroll);
-    }
-
-    requestAnimationFrame(animateScroll);
-  });
-});
-</script>
-
 
 <script src="./script/main.js"></script>
 <script src="./script/scroll.js"></script>
