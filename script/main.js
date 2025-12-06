@@ -17,7 +17,6 @@ window.showToast = function (message, type = 'success') {
   }, 2000);
 };
 
-
 // --- FORMULAIRE CONTACT ---
 document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.getElementById("contactForm");
@@ -70,8 +69,12 @@ document.addEventListener("DOMContentLoaded", () => {
       // 4. Suppression du champ caché JSON (s'il existe)
       const hiddenJson = document.querySelector('input[name="commande_json"]');
       if (hiddenJson) hiddenJson.remove();
-      localStorage.removeItem('speedfix_cart', JSON.stringify(cart));
-      setTimeout(() => showToast("Formulaire effacé", "success"), 100);
+
+      localStorage.removeItem('speedfix_cart'); // Supprime du stockage navigateur
+      if (typeof cart !== 'undefined' && Array.isArray(cart)) {
+        cart.length = 0; // Vide la variable en mémoire vive 
+      }
+      setTimeout(() => showToast("Formulaire et panier vidés", "success"), 100);
     });
   }
 
