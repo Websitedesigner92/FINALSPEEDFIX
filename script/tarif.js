@@ -83,13 +83,13 @@ function updateQualityLabels() {
 
   } else if (selectedType === 'batterie') {
     // --- CAS BATTERIE ---
-    if(titleEco) titleEco.textContent = "Batterie Compatible";
-    if(descEco) descEco.textContent = "Batterie neuve certifiée";
+    if (titleEco) titleEco.textContent = "Batterie Compatible";
+    if (descEco) descEco.textContent = "Batterie neuve certifiée";
 
-    if(titlePrem) titlePrem.textContent = "Batterie Origine";
-    if(descPrem) descPrem.textContent = "Batterie officielle.";
+    if (titlePrem) titlePrem.textContent = "Batterie Origine";
+    if (descPrem) descPrem.textContent = "Batterie officielle.";
 
-  }else {
+  } else {
     // --- CAS PAR DÉFAUT ---
     if (titleEco) titleEco.textContent = "Éco";
     if (descEco) descEco.textContent = "Pièce générique de bonne facture, idéale pour les petits budgets.";
@@ -121,21 +121,23 @@ function Prix() {
   if (price == null) { if (priceValueEl) priceValueEl.textContent = "-- €"; return; }
   if (priceValueEl) priceValueEl.textContent = price + "€";
   // --- 2. GESTION DU TEXTE  ---
-  const typeLabel = TYPE_LABELS[selectedType] || selectedType;
-  const qualLabel = QUALITY_LABELS[selectedQuality] || selectedQuality;
   const modelLabel = modelData.label || selectedModel;
-
-  if (selectedType !== 'chassis') {
-    if (priceDetailEl) priceDetailEl.textContent = `Réparation ${typeLabel} (${qualLabel}) sur ${modelLabel}.`;
-  } else {
-    let labelchassis = "";
-    if (selectedQuality === 'eco') {
-      labelchassis = "Vitre Arrière";
-    } else if (selectedQuality === 'premium') {
-      labelchassis = "Châssis Complet";
-    }
-    if (priceDetailEl) priceDetailEl.textContent = `Réparation ${labelchassis} sur ${modelLabel}.`;
+  let labelchassis = "";
+  switch (selectedType) {
+    case 'ecran':
+      (selectedQuality === 'eco') ? labelchassis = "Écran Éco" : labelchassis = "Écran Original";
+      break;
+    case 'batterie':
+      (selectedQuality === 'eco') ? labelchassis = "Batterie Compatible" : labelchassis = "Batterie Origine";
+      break;
+    case 'chassis':
+      (selectedQuality === 'eco') ? labelchassis = "Vitre Arrière" : labelchassis = "Châssis Complet";
+      break;
+    default:
+      break;
   }
+  if (priceDetailEl) priceDetailEl.textContent = `Réparation ${labelchassis} sur ${modelLabel}.`;
+
 }
 
 Type_Probleme.forEach((btn) => {
