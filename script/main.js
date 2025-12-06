@@ -48,41 +48,90 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // "Reset"
+    // "RESET"
     contactForm.addEventListener('reset', () => {
+      // 1. Nettoyage du localStorage (AutoSave des champs)
       inputs.forEach(input => localStorage.removeItem('autosave_' + input.name));
+
+      // 2. Suppression du résumé visuel du panier (AJOUT)
+      const summaryVisual = document.getElementById('cart-summary-visual');
+      const accessoriesField = document.getElementById('contact-accessories');
+      
+      if (summaryVisual) {
+        summaryVisual.remove(); // On supprime le bloc visuel
+      }
+
+      // 3. Réinitialisation du champ "Accessoires" 
+      if (accessoriesField) {
+        accessoriesField.style.display = 'block'; // On réaffiche le textarea classique
+        accessoriesField.value = ''; // On vide sa valeur
+      }
+
+      // 4. Suppression du champ caché JSON (s'il existe)
+      const hiddenJson = document.querySelector('input[name="commande_json"]');
+      if (hiddenJson) hiddenJson.remove();
+      localStorage.removeItem('speedfix_cart', JSON.stringify(cart));
       setTimeout(() => showToast("Formulaire effacé", "success"), 100);
     });
   }
 
+
   // --- 2. AJOUT DU PANIER AU FORMULAIRE ---
   const cart = JSON.parse(localStorage.getItem('speedfix_cart')) || [];
 
-  if (cart.length > 0 && contactAccessories) {
-    let cartText = "MA COMMANDE ACCESSOIRES :";
+  // Dans la section "AJOUT DU PANIER AU FORMULAIRE"
+if (cart.length > 0) {
+    const contactForm = document.getElementById("contactForm");
+    const accessoriesField = document.getElementById('contact-accessories'); //
+    
+    // 1. Création du conteneur visuel (Respect de la DA Dark Mode)
+    const summaryDiv = document.createElement('div');
+    summaryDiv.id = "cart-summary-visual"; 
+    summaryDiv.className = "mb-6 p-4 rounded-2xl bg-white/5 border border-white/10 shadow-lg backdrop-blur-sm animate-pulse"; // Animation légère à l'arrivée
+    summaryDiv.style.animation = "none"; // On stop l'animation après chargement
+    
+    // 2. Construction du HTML
+    let total = 0;
+    let itemsHtml = cart.map(item => {
+        total += item.price * item.qty;
+        return `
+            <div class="flex justify-between items-center text-sm py-1 border-b border-white/5 last:border-0">
+                <span class="text-white/80"><span class="text-primary font-bold">${item.qty}x</span> ${item.name}</span>
+                <span class="font-mono text-white/60">${item.price * item.qty}€</span>
+            </div>
+        `;
+    }).join('');
 
-    cart.forEach(item => {
-      cartText += `\n- ${item.name} (${item.qty})`;
-    });
+    summaryDiv.innerHTML = `
+        <h4 class="text-primary font-bold text-[11px] uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
+            <span>🛍️</span> Résumé de la commande
+        </h4>
+        <div class="space-y-1 mb-3">
+            ${itemsHtml}
+        </div>
+        <div class="flex justify-between items-center pt-3 border-t border-white/10">
+            <span class="text-xs text-white/50 uppercase tracking-wider">Total estimé</span>
+            <span class="text-xl font-bold text-white">${total}€</span>
+        </div>
+        <input type="hidden" name="commande_json" value='${JSON.stringify(cart)}'> 
+    `;
 
-    // Ajout au texte existant 
-    const prefix = contactAccessories.value ? "\n\n" : "";
-    contactAccessories.value = contactAccessories.value + prefix + cartText;
-
-
-    localStorage.setItem('autosave_' + contactAccessories.name, contactAccessories.value);
-
-    // Ajustement visuel
-    contactAccessories.style.height = "auto";
-    contactAccessories.style.height = contactAccessories.scrollHeight + 'px';
-
-    // On vide le panier 
-    localStorage.removeItem('speedfix_cart');
-
+    // 3. Insertion dans le DOM (Juste avant le captcha ou après les accessoires)
+    // On cache le champ texte standard car on a maintenant le visuel
+    if(accessoriesField) {
+        accessoriesField.style.display = 'none'; 
+        accessoriesField.parentNode.insertBefore(summaryDiv, accessoriesField);
+        
+        // On remplit quand même le champ caché pour l'envoi du mail
+        accessoriesField.value = "COMMANDE : " + JSON.stringify(cart);
+    }
+    
+    // 4. Feedback utilisateur
     setTimeout(() => {
-      showToast("Votre panier a été ajouté au formulaire !", "success");
-    }, 800);
-  }
+      showToast("Votre panier a été joint à la demande !", "success"); //
+    }, 500);
+    
+}
 
   // --- 3. INIT CAPTCHA ---
   if (contactForm) {
@@ -90,226 +139,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// --- FONCTIONS CAPTCHA ---
-function initCaptcha() {
-  const contactForm = document.getElementById("contactForm");
-  const captchaCanvas = document.getElementById("captcha-canvas");
-  const captchaAnswerInput = document.getElementById("captcha-answer");
-  const captchaError = document.getElementById("captcha-error");
-  let captchaCode = "";
 
-  function randomColor() {
-    const r = Math.floor(Math.random() * 200);
-    const g = Math.floor(Math.random() * 200);
-    const b = Math.floor(Math.random() * 200);
-    return `rgb(${r},${g},${b})`;
-  }
-
-  window.generateCaptcha = function () {
-    if (!captchaCanvas) return;
-    const ctx = captchaCanvas.getContext("2d");
-    const width = captchaCanvas.width;
-    const height = captchaCanvas.height;
-    ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = "#f3f4f6";
-    ctx.fillRect(0, 0, width, height);
-    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-    captchaCode = "";
-    for (let i = 0; i < 4; i++) {
-      const char = chars[Math.floor(Math.random() * chars.length)];
-      captchaCode += char;
-      ctx.save();
-      const x = 20 + i * 22;
-      const y = 30 + Math.random() * 10;
-      const angle = (Math.random() - 0.5) * 0.5;
-      ctx.translate(x, y);
-      ctx.rotate(angle);
-      ctx.font = "bold 28px Arial";
-      ctx.fillStyle = randomColor();
-      ctx.fillText(char, 0, 0);
-      ctx.restore();
-    }
-    for (let i = 0; i < 5; i++) {
-      ctx.beginPath();
-      ctx.moveTo(Math.random() * width, Math.random() * height);
-      ctx.lineTo(Math.random() * width, Math.random() * height);
-      ctx.strokeStyle = randomColor();
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    }
-  };
-
-  generateCaptcha();
-
-  contactForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const userAnswer = captchaAnswerInput.value.toUpperCase().trim();
-
-    if (userAnswer !== captchaCode) {
-      // ERREUR CAPTCHA
-      captchaError.classList.remove("hidden");
-      captchaAnswerInput.classList.add("border-red-500");
-      showToast("Code de sécurité incorrect", "error");
-      generateCaptcha();
-      captchaAnswerInput.value = "";
-    } else {
-      // SUCCÈS
-      captchaError.classList.add("hidden");
-      captchaAnswerInput.classList.remove("border-red-500");
-
-      showToast("Message envoyé avec succès !", "success");
-
-      // NETTOYAGE COMPLET (Formulaire + LocalStorage)
-      contactForm.reset();
-      const inputs = contactForm.querySelectorAll('input, textarea');
-      inputs.forEach(input => localStorage.removeItem('autosave_' + input.name));
-
-      generateCaptcha();
-    }
-  });
-}
-
-// Gestion du bouton Réserver (Page Tarifs)
-const reserveBtn = document.getElementById("reserveButton");
-if (reserveBtn) {
-  reserveBtn.addEventListener("click", () => {
-    const contactModel = document.getElementById("contact-model");
-    const contactIssue = document.getElementById("contact-issue");
-
-    // Vérification que les variables globales de tarif.js existent
-    if (typeof selectedModel !== 'undefined' && typeof tarifsData !== 'undefined' && contactModel && contactIssue) {
-      if (selectedModel && tarifsData.iphone[selectedModel]) {
-
-        const modelName = tarifsData.iphone[selectedModel].label;
-
-        // Récupération des libellés de base
-        let qualityName = (typeof QUALITY_LABELS !== 'undefined') ? QUALITY_LABELS[selectedQuality] : selectedQuality;
-
-        // --- CORRECTION ICI : On change le nom de la qualité si c'est un châssis ---
-        switch (selectedType) {
-          case 'chassis':
-            if (selectedQuality === 'eco') qualityName = "Vitre Arrière";
-            if (selectedQuality === 'premium') qualityName = "Châssis Complet";
-            break;
-          case 'batterie':
-            if (selectedQuality === 'premium') qualityName = "Batterie Officielle Apple";
-            if (selectedQuality === 'eco') qualityName = "Batterie Compatible";
-            break;
-          case 'ecran':
-            if (selectedQuality === 'premium') qualityName = "Écran Original Apple";
-            if (selectedQuality === 'eco') qualityName = "Écran Compatible";
-            break;
-          default:
-            break;
-        }
-
-        // -----------------------------------------------------------------------
-
-        const priceText = document.getElementById("priceValue") ? document.getElementById("priceValue").textContent : "-- €";
-
-        // Remplissage du formulaire
-        contactModel.value = modelName;
-        const issueText = `Demande de réparation : (${qualityName}). Prix estimé : ${priceText}`;
-        contactIssue.value = issueText;
-
-        // Sauvegarde automatique
-        if (contactModel.name) localStorage.setItem('autosave_' + contactModel.name, modelName);
-        if (contactIssue.name) localStorage.setItem('autosave_' + contactIssue.name, issueText);
-
-        showToast("Réparation ajoutée au formulaire !", "success");
-      }
-    }
-
-    // --- SCROLL FLUIDE VERS LE FORMULAIRE ---
-    const contactSection = document.getElementById("contactForm");
-    if (!contactSection) return;
-
-    // 1. Calcul de l'offset (Marge pour le header fixe)
-    function getOffset() {
-      if (window.innerWidth < 768) {
-        return 50; // Mobile : on laisse 50px 
-      } else {
-        return 100;  // Desktop : on laisse 100px
-      }
-    }
-
-    // 2. Fonction d'animation mathématique
-    function smoothScrollTo(targetY, duration = 1800) {
-      const start = window.scrollY || window.pageYOffset;
-      const change = targetY - start;
-      const startTime = performance.now();
-
-      function animateScroll(now) {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        // Fonction d'assouplissement (Ease Out Cubic)
-        const ease = 1 - Math.pow(1 - progress, 3);
-
-        window.scrollTo(0, start + change * ease);
-
-        if (progress < 1) {
-          requestAnimationFrame(animateScroll);
-        }
-      }
-
-      requestAnimationFrame(animateScroll);
-    }
-
-    // 3. Exécution
-    const offset = getOffset();
-    const rect = contactSection.getBoundingClientRect();
-    // On vise la position actuelle + distance de l'élément - la hauteur du header
-    const targetY = rect.top + window.scrollY - offset;
-
-    smoothScrollTo(targetY, 1000); // Durée de 1 secondes comme demandé
-  });
-};
-
-
-
-
-
-document.addEventListener("DOMContentLoaded", function () {
-  const btn = document.querySelector('a[href="#form-services"]');
-  const sceneTrack = document.getElementById("scroll-track");
-
-  if (!btn || !sceneTrack) return;
-
-  btn.addEventListener("click", function (e) {
-    e.preventDefault();
-
-    // Position de la section scroll-track
-    const rect = sceneTrack.getBoundingClientRect();
-    const sectionTop = rect.top + window.scrollY;
-    const maxScrollInside = rect.height - window.innerHeight;
-
-    // --- Ratio différent selon l'appareil ---
-    let ratio;
-    if (window.innerWidth < 768) {
-      ratio = 1.15;  // 📱 Téléphone → descend plus bas
-    } else {
-      ratio = 1;   // 🖥️ PC → valeur normale
-    }
-
-    const targetY = sectionTop + Math.max(0, maxScrollInside * ratio);
-
-    // ----- SMOOTH SCROLL LENT -----
-    const duration = 1000; // tu peux modifier pour changer la vitesse
-    const start = window.scrollY;
-    const change = targetY - start;
-    const startTime = performance.now();
-
-    function animateScroll(now) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 2); // easing
-
-      window.scrollTo(0, start + change * ease);
-
-      if (progress < 1) requestAnimationFrame(animateScroll);
-    }
-
-    requestAnimationFrame(animateScroll);
-  });
-});
