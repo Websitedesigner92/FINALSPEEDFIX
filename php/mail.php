@@ -1,6 +1,6 @@
 <?php
-// 1. Configuration : Mets ton adresse email ici !
-$destinataire = "contact@speedfix.fr"; // <-- TON EMAIL
+// 1. Configuration 
+$destinataire = "contact@speedfix.shop"; // <-- TON EMAIL
 $sujet = "Nouvelle demande SpeedFix";
 
 // Vérification que le formulaire a bien été envoyé
