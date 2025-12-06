@@ -62,18 +62,42 @@ function initCaptcha() {
       generateCaptcha();
       captchaAnswerInput.value = "";
     } else {
-      // SUCCÈS
+      // --- SUCCÈS CAPTCHA : ON ENVOIE AU PHP ---
+      
       captchaError.classList.add("hidden");
       captchaAnswerInput.classList.remove("border-red-500");
 
-      showToast("Message envoyé avec succès !", "success");
+      const formData = new FormData(contactForm);
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.innerText;
+      
+      // Petit effet de chargement
+      submitBtn.innerText = "Envoi...";
+      submitBtn.disabled = true;
 
-      // NETTOYAGE COMPLET (Formulaire + LocalStorage)
-      contactForm.reset();
-      const inputs = contactForm.querySelectorAll('input, textarea');
-      inputs.forEach(input => localStorage.removeItem('autosave_' + input.name));
-
-      generateCaptcha();
+      // Envoi des données au fichier PHP
+      fetch('../php/mail.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          showToast("Message envoyé avec succès !", "success");
+          contactForm.reset(); // Le reset nettoiera tout 
+          generateCaptcha();
+        } else {
+          throw new Error('Erreur serveur');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        showToast("Erreur technique. Contactez-nous par téléphone.", "error");
+      })
+      .finally(() => {
+        submitBtn.innerText = originalBtnText;
+        submitBtn.disabled = false;
+        captchaAnswerInput.value = "";
+      });
     }
   });
 }
