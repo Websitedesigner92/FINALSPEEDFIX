@@ -1,19 +1,19 @@
 // --- FONCTION TOAST (Notifications) ---
-window.showToast = function(message, type = 'success') {
+window.showToast = function (message, type = 'success') {
   const container = document.getElementById('toast-container');
-  if(!container) return;
+  if (!container) return;
   const toast = document.createElement('div');
   let bgColors = type === 'success' ? 'bg-green-500' : 'bg-red-500';
   let icon = type === 'success' ? '✅' : '⚠️';
   toast.className = `${bgColors} text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 transform translate-x-full transition-transform duration-300 pointer-events-auto min-w-[300px] z-50 mb-3`;
   toast.innerHTML = `<span class="text-xl">${icon}</span><p class="font-bold text-sm">${message}</p>`;
   container.appendChild(toast);
-  
+
   requestAnimationFrame(() => toast.classList.remove('translate-x-full'));
-  
+
   setTimeout(() => {
     toast.classList.add('translate-x-full');
-    setTimeout(() => { if(toast.parentNode) toast.parentNode.removeChild(toast); }, 300);
+    setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 300);
   }, 2000);
 };
 
@@ -24,23 +24,23 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- (LocalStorage) ---
   if (contactForm) {
     const inputs = contactForm.querySelectorAll('input, textarea');
-    
+
     inputs.forEach(input => {
-      
-      if(input.id === 'captcha-answer') return;
+
+      if (input.id === 'captcha-answer') return;
 
       // A. Charger la valeur sauvegardée au démarrage
       const savedValue = localStorage.getItem('autosave_' + input.name);
       if (savedValue) {
         input.value = savedValue;
         // Ajuster hauteur si c'est un textarea
-        if(input.tagName === 'TEXTAREA') {
-             input.style.height = "auto";
-             input.style.height = input.scrollHeight + "px";
+        if (input.tagName === 'TEXTAREA') {
+          input.style.height = "auto";
+          input.style.height = input.scrollHeight + "px";
         }
       }
 
-      
+
       input.addEventListener('input', () => {
         localStorage.setItem('autosave_' + input.name, input.value);
       });
@@ -58,27 +58,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (cart.length > 0 && contactAccessories) {
     let cartText = "MA COMMANDE ACCESSOIRES :";
-    
+
     cart.forEach(item => {
-        cartText += `\n- ${item.name} (${item.qty})`;
+      cartText += `\n- ${item.name} (${item.qty})`;
     });
 
     // Ajout au texte existant 
     const prefix = contactAccessories.value ? "\n\n" : "";
     contactAccessories.value = contactAccessories.value + prefix + cartText;
-    
-    
+
+
     localStorage.setItem('autosave_' + contactAccessories.name, contactAccessories.value);
-    
+
     // Ajustement visuel
     contactAccessories.style.height = "auto";
     contactAccessories.style.height = contactAccessories.scrollHeight + 'px';
 
     // On vide le panier 
     localStorage.removeItem('speedfix_cart');
-    
+
     setTimeout(() => {
-        showToast("Votre panier a été ajouté au formulaire !", "success");
+      showToast("Votre panier a été ajouté au formulaire !", "success");
     }, 800);
   }
 
@@ -142,7 +142,7 @@ function initCaptcha() {
   contactForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const userAnswer = captchaAnswerInput.value.toUpperCase().trim();
-    
+
     if (userAnswer !== captchaCode) {
       // ERREUR CAPTCHA
       captchaError.classList.remove("hidden");
@@ -154,14 +154,14 @@ function initCaptcha() {
       // SUCCÈS
       captchaError.classList.add("hidden");
       captchaAnswerInput.classList.remove("border-red-500");
-      
+
       showToast("Message envoyé avec succès !", "success");
-      
+
       // NETTOYAGE COMPLET (Formulaire + LocalStorage)
       contactForm.reset();
       const inputs = contactForm.querySelectorAll('input, textarea');
       inputs.forEach(input => localStorage.removeItem('autosave_' + input.name));
-      
+
       generateCaptcha();
     }
   });
@@ -173,28 +173,72 @@ if (reserveBtn) {
   reserveBtn.addEventListener("click", () => {
     const contactModel = document.getElementById("contact-model");
     const contactIssue = document.getElementById("contact-issue");
-    
+
     // Vérification que les variables globales de tarif.js existent
     if (typeof selectedModel !== 'undefined' && typeof tarifsData !== 'undefined' && contactModel && contactIssue) {
-        if(selectedModel && tarifsData.iphone[selectedModel]) {
-            const modelName = tarifsData.iphone[selectedModel].label;
-            const typeName = TYPE_LABELS[selectedType];
-            const qualityName = QUALITY_LABELS[selectedQuality];
-            const priceText = document.getElementById("priceValue") ? document.getElementById("priceValue").textContent : "-- €";
-            
-            contactModel.value = modelName;
-            const issueText = `Demande de réparation : ${typeName} (${qualityName}). Prix estimé : ${priceText}`;
-            contactIssue.value = issueText;
+      if (selectedModel && tarifsData.iphone[selectedModel]) {
+        const modelName = tarifsData.iphone[selectedModel].label;
+        const typeName = TYPE_LABELS[selectedType];
+        const qualityName = QUALITY_LABELS[selectedQuality];
+        const priceText = document.getElementById("priceValue") ? document.getElementById("priceValue").textContent : "-- €";
 
-            
-            if(contactModel.name) localStorage.setItem('autosave_' + contactModel.name, modelName);
-            if(contactIssue.name) localStorage.setItem('autosave_' + contactIssue.name, issueText);
+        contactModel.value = modelName;
+        const issueText = `Demande de réparation : ${typeName} (${qualityName}). Prix estimé : ${priceText}`;
+        contactIssue.value = issueText;
 
-            showToast("Réparation ajoutée au formulaire !", "success");
-        }
+        if (contactModel.name) localStorage.setItem('autosave_' + contactModel.name, modelName);
+        if (contactIssue.name) localStorage.setItem('autosave_' + contactIssue.name, issueText);
+
+        showToast("Réparation ajoutée au formulaire !", "success");
+      }
     }
+
+    // --- SCROLL FLUIDE VERS LE FORMULAIRE ---
+    const contactSection = document.getElementById("contactForm");
+    if (!contactSection) return;
+
+    // 1. Calcul de l'offset (Marge pour le header fixe)
+    function getOffset() {
+      if (window.innerWidth < 768) {
+        return 50; // Mobile : on laisse 50px 
+      } else {
+        return 100;  // Desktop : on laisse 100px
+      }
+    }
+
+    // 2. Fonction d'animation mathématique
+    function smoothScrollTo(targetY, duration = 1800) {
+      const start = window.scrollY || window.pageYOffset;
+      const change = targetY - start;
+      const startTime = performance.now();
+
+      function animateScroll(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Fonction d'assouplissement (Ease Out Cubic)
+        const ease = 1 - Math.pow(1 - progress, 3);
+
+        window.scrollTo(0, start + change * ease);
+
+        if (progress < 1) {
+          requestAnimationFrame(animateScroll);
+        }
+      }
+
+      requestAnimationFrame(animateScroll);
+    }
+
+    // 3. Exécution
+    const offset = getOffset();
+    const rect = contactSection.getBoundingClientRect();
+    // On vise la position actuelle + distance de l'élément - la hauteur du header
+    const targetY = rect.top + window.scrollY - offset;
+
+    smoothScrollTo(targetY, 1000); // Durée de 1 secondes comme demandé
   });
-}
+};
+
 
 
 

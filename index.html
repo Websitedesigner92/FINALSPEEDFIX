@@ -9,6 +9,10 @@
 
 
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     .speedfix-bg {
       background-image:
         radial-gradient(circle at top left, rgba(239, 68, 68, 0.25), transparent 60%),
@@ -43,8 +47,8 @@
   <div id="toast-container" class="fixed top-24 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
   <!-- HEADER -->
   <header class="fixed top-0 inset-x-0 z-30 border-b border-white/10 bg-dark/80 backdrop-blur">
-    <div class="max-w-6xl mx-auto px-4 lg:px-4 h-16 flex items-center justify-between">
-      <a href="#top" class="w-32 h-16 flex items-center relative lg:w-40 lg:scale-[150%]">
+    <div class="max-w-6xl mx-auto h-16 flex items-center justify-between">
+       <a href="#top" class="w-32 h-16 flex items-center relative lg:w-40 lg:scale-[150%]">
         <img src="./img/logo.webp" alt="SpeedFix"
           class="object-contain hover:opacity-80 absolute lg:top-0 transition-opacity">
       </a>
@@ -94,7 +98,8 @@
                 </h1>
               </div>
               <p class="mt-4 text-sm md:text-base text-white/70 max-w-xl">
-                Écran fissuré ou batterie défectueuse ? Plus besoin de vous déplacer ! Nous réparons votre téléphone directement chez vous ou au bureau !
+                Écran fissuré ou batterie défectueuse ? Plus besoin de vous déplacer ! Nous réparons votre téléphone
+                directement chez vous ou au bureau !
               </p>
               <div class="flex mt-4 flex-wrap items-center gap-3">
                 <!-- BOUTON RDV AVEC ID POUR L'ANIMATION -->
@@ -108,7 +113,8 @@
             <div class="relative flex items-center justify-center w-full h-full">
               <div id="hero-camion"
                 class="relative w-full max-w-[450px]  sm:scale-95 md:scale-150 will-change-transform">
-                <img src="./canva/2_1.webp" class="w-full h-auto object-contain drop-shadow-2xl" alt="Camion SpeedFix" />
+                <img src="./canva/2_1.webp" class="w-full h-auto object-contain drop-shadow-2xl"
+                  alt="Camion SpeedFix" />
               </div>
             </div>
 
@@ -386,8 +392,7 @@
 
               <div>
                 <label class="block text-[11px] font-medium text-white/70 mb-1">Problème rencontré</label>
-                <textarea id="contact-issue" name="message" rows="3"
-                  oninput="autoResize(this)"
+                <textarea id="contact-issue" name="message" rows="3" oninput="autoResize(this)"
                   class="w-full h-auto px-3 py-2 rounded-2xl bg-black/60 border border-white/15 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/60 transition-all"
                   placeholder="Décrivez le problème..."></textarea>
               </div>
@@ -460,61 +465,62 @@
     </svg>
   </a>
 
-      <!-- Défileme,t fluide -->
-  <script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  function getOffset() {
-    // Si écran < 768px → mobile
-    if (window.innerWidth < 768) {
-      return -80;  // 📱 descend plus bas sur téléphone
-    } else {
-      return -10;  // 🖥️ offset parfait sur PC
-    }
-  }
-
-  function smoothScrollTo(targetY, duration = 1800) {
-    const start = window.scrollY || window.pageYOffset;
-    const change = targetY - start;
-    const startTime = performance.now();
-
-    function animateScroll(now) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 3);
-
-      window.scrollTo(0, start + change * ease);
-
-      if (progress < 1) requestAnimationFrame(animateScroll);
-    }
-
-    requestAnimationFrame(animateScroll);
-  }
-
-  const tarifsSection = document.getElementById("tarifs");
-  if (!tarifsSection) return;
-
-  const cards = document.querySelectorAll('#form-services a[href="#tarifs"]');
-
-  cards.forEach((card) => {
-    card.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      const offset = getOffset(); // 🌟 offset dynamique mobile/PC
-      const rect = tarifsSection.getBoundingClientRect();
-      const targetY = rect.top + window.scrollY - offset;
-
-      smoothScrollTo(targetY, 1800);
-    });
-  });
-});
-</script>
 
 
 </body>
+<!-- Défileme,t fluide -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+    function getOffset() {
+      // Si écran < 768px → mobile
+      if (window.innerWidth < 768) {
+        return -80;  // 📱 descend plus bas sur téléphone
+      } else {
+        return -10;  // 🖥️ offset parfait sur PC
+      }
+    }
+
+    function smoothScrollTo(targetY, duration = 1800) {
+      const start = window.scrollY || window.pageYOffset;
+      const change = targetY - start;
+      const startTime = performance.now();
+
+      function animateScroll(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+
+        window.scrollTo(0, start + change * ease);
+
+        if (progress < 1) requestAnimationFrame(animateScroll);
+      }
+
+      requestAnimationFrame(animateScroll);
+    }
+
+    const tarifsSection = document.getElementById("tarifs");
+    if (!tarifsSection) return;
+
+    const cards = document.querySelectorAll('#form-services a[href="#tarifs"]');
+
+    cards.forEach((card) => {
+      card.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        const offset = getOffset(); // 🌟 offset dynamique mobile/PC
+        const rect = tarifsSection.getBoundingClientRect();
+        const targetY = rect.top + window.scrollY - offset;
+
+        smoothScrollTo(targetY, 1800);
+      });
+    });
+  });
+</script>
 
 <script src="./script/main.js"></script>
 <script src="./script/scroll.js"></script>
 <script src="./script/catalogue.js"></script>
 <script src="./script/tarif.js"></script>
+
 </html>

@@ -4,91 +4,91 @@
       "label": "iPhone 7 / 8 / SE 2",
       "ecran":   { "eco": 30, "premium": 35 },
       "batterie":{ "eco": 20, "premium": 30 },
-      "chassis": { "eco": 50, "premium": 50 }
+      "chassis": { "Vitre_AR": 50, "chassis-prix": 50 }
     },
     "7plus_8plus": {
       "label": "iPhone 7 Plus / 8 Plus",
       "ecran":   { "eco": 40, "premium": 50 },
       "batterie":{ "eco": 20, "premium": 30 },
-      "chassis": { "eco": 65, "premium": 65 }
+      "chassis": { "Vitre_AR": 65, "chassis-prix": 65 }
     },
     "x_xs_11pro_xsmax": {
       "label": "iPhone X / XS / 11 Pro / XS Max",
       "ecran":   { "eco": 40, "premium": 60 },
       "batterie":{ "eco": 30, "premium": 40 },
-      "chassis": { "eco": 75, "premium": 80 }
+      "chassis": { "Vitre_AR": 75, "chassis-prix": 80 }
     },
     "xr_11": {
       "label": "iPhone XR / 11",
       "ecran":   { "eco": 50, "premium": 70 },
       "batterie":{ "eco": 30, "premium": 40 },
-      "chassis": { "eco": 70, "premium": 70 }
+      "chassis": { "Vitre_AR": 70, "chassis-prix": 70 }
     },
     "12_12pro": {
       "label": "iPhone 12 / 12 Pro",
       "ecran":   { "eco": 50, "premium": 90 },
       "batterie":{ "eco": 50, "premium": 70 },
-      "chassis": { "eco": 90, "premium": 90 }
+      "chassis": { "Vitre_AR": 90, "chassis-prix": 90 }
     },
     "12promax": {
       "label": "iPhone 12 Pro Max",
       "ecran":   { "eco": 60, "premium": 120 },
       "batterie":{ "eco": 50, "premium": 70 },
-      "chassis": { "eco": 110, "premium": 110 }
+      "chassis": { "Vitre_AR": 110, "chassis-prix": 110 }
     },
     "13_14": {
       "label": "iPhone 13 / 14",
       "ecran":   { "eco": 70, "premium": 110 },
       "batterie":{ "eco": 50, "premium": 70 },
-      "chassis": { "eco": 130, "premium": 130 }
+      "chassis": { "Vitre_AR": 130, "chassis-prix": 130 }
     },
     "12mini_13mini": {
       "label": "iPhone 12 Mini / 13 Mini",
       "ecran":   { "eco": 70, "premium": 100 },
       "batterie":{ "eco": 50, "premium": 70 },
-      "chassis": { "eco": 100, "premium": 100 }
+      "chassis": { "Vitre_AR": 100, "chassis-prix": 100 }
     },
     "13pro": {
       "label": "iPhone 13 Pro",
       "ecran":   { "eco": 70, "premium": 120 },
       "batterie":{ "eco": 50, "premium": 70 },
-      "chassis": { "eco": 140, "premium": 140 }
+      "chassis": { "Vitre_AR": 140, "chassis-prix": 140 }
     },
     "13promax_14pro": {
       "label": "iPhone 13 Pro Max / 14 Pro",
       "ecran":   { "eco": 80, "premium": 130 },
       "batterie":{ "eco": 60, "premium": 80 },
-      "chassis": { "eco": 150, "premium": 150 }
+      "chassis": { "Vitre_AR": 150, "chassis-prix": 150 }
     },
     "14promax": {
       "label": "iPhone 14 Pro Max",
       "ecran":   { "eco": 90, "premium": 150 },
       "batterie":{ "eco": 60, "premium": 80 },
-      "chassis": { "eco": 150, "premium": 150 }
+      "chassis": { "Vitre_AR": 150, "chassis-prix": 150 }
     },
     "15_15plus_15pro": {
       "label": "iPhone 15 / 15 Plus / 15 Pro",
       "ecran":   { "eco": 90, "premium": 150 },
       "batterie":{ "eco": 70, "premium": 90 },
-      "chassis": { "eco": 45, "premium": 43 }
+      "chassis": { "Vitre_AR": 45, "chassis-prix": 43 }
     },
     "15promax": {
       "label": "iPhone 15 Pro Max",
       "ecran":   { "eco": 100, "premium": 160 },
       "batterie":{ "eco": 70, "premium": 90 },
-      "chassis": { "eco":65165 , "premium": 540 }
+      "chassis": { "Vitre_AR":65165 , "chassis-prix": 540 }
     },
     "16_16pro_16promax": {
       "label": "iPhone 16 / 16 Pro",
       "ecran":   { "eco": 90, "premium": 190 },
       "batterie":{ "eco": 70, "premium": 90 },
-      "chassis": { "eco": 45, "premium": 435 }
+      "chassis": { "Vitre_AR": 45, "chassis-prix": 435 }
     },
     "16promax": {
       "label": "iPhone 16 Pro Max",
       "ecran":   { "eco": 110, "premium": 200 },
       "batterie":{ "eco": 80, "premium": 100 },
-      "chassis": { "eco": 51654, "premium": 6465456 }
+      "chassis": { "Vitre_AR": 51654, "chassis-prix": 6465456 }
     }
   }
 }

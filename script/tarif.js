@@ -57,6 +57,39 @@ function update_Qualiter() {
   });
 }
 
+function updateQualityLabels() {
+  const btnEco = document.querySelector('button[data-quality="eco"]');
+  const btnPrem = document.querySelector('button[data-quality="premium"]');
+
+  // Sécurité 
+  if (!btnEco || !btnPrem) return;
+
+  // On cible les titres 
+  const titleEco = btnEco.querySelector("span:first-child");
+  const descEco = btnEco.querySelector("span:last-child");
+  
+  const titlePrem = btnPrem.querySelector("span:first-child");
+  const descPrem = btnPrem.querySelector("span:last-child");
+
+  if (selectedType === 'chassis') {
+    // --- CAS CHÂSSIS ---
+    if(titleEco) titleEco.textContent = "Vitre Arrière";
+    if(descEco) descEco.textContent = "Remplacement de la vitre arrière uniquement.";
+
+
+    if(titlePrem) titlePrem.textContent = "Châssis Complet";
+    if(descPrem) descPrem.textContent = "Remplacement du châssis intégral.";
+
+  } else {
+    // --- CAS PAR DÉFAUT ---
+    if(titleEco) titleEco.textContent = "Éco";
+    if(descEco) descEco.textContent = "Pièce générique de bonne facture, idéale petits budgets.";
+
+    if(titlePrem) titlePrem.textContent = "Premium";
+    if(descPrem) descPrem.textContent = "Qualité d'affichage et tactile identique à l'original.";
+  }
+}
+
 function Prix() {
   if (!tarifsData || !tarifsData.iphone) return;
   if (!selectedType || !selectedModel || !selectedQuality) {
@@ -76,8 +109,14 @@ function Prix() {
 }
 
 Type_Probleme.forEach((btn) => {
-  btn.addEventListener("click", () => { selectedType = btn.dataset.type; update_Type_Probleme(); Prix(); });
+  btn.addEventListener("click", () => { 
+    selectedType = btn.dataset.type; 
+    update_Type_Probleme(); 
+    updateQualityLabels(); 
+    Prix(); 
+  });
 });
+
 Qualiter.forEach((btn) => {
   btn.addEventListener("click", () => { selectedQuality = btn.dataset.quality; update_Qualiter(); Prix(); });
 });
@@ -89,5 +128,7 @@ loadTarifs();
 window.selectServiceFromCard = function (type) {
   selectedType = type;
   update_Type_Probleme();
+  updateQualityLabels();
   Prix();
+  
 };
