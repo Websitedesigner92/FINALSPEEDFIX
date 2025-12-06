@@ -1,5 +1,5 @@
 // --- LOGIQUE SIMULATEUR ---
-const TARIFS_URL = "./tarif.json"; 
+const TARIFS_URL = "./tarif.json";
 
 
 const TYPE_LABELS = { ecran: "écran", batterie: "batterie", chassis: "vitre / châssis" };
@@ -67,53 +67,83 @@ function updateQualityLabels() {
   // On cible les titres 
   const titleEco = btnEco.querySelector("span:first-child");
   const descEco = btnEco.querySelector("span:last-child");
-  
+
   const titlePrem = btnPrem.querySelector("span:first-child");
   const descPrem = btnPrem.querySelector("span:last-child");
 
+  // --- 1. LOGIQUE DE MODIFICATION DES TEXTES ---
   if (selectedType === 'chassis') {
     // --- CAS CHÂSSIS ---
-    if(titleEco) titleEco.textContent = "Vitre Arrière";
-    if(descEco) descEco.textContent = "Remplacement de la vitre arrière uniquement.";
+    if (titleEco) titleEco.textContent = "Vitre Arrière";
+    if (descEco) descEco.textContent = "Remplacement de la vitre arrière uniquement.";
 
 
-    if(titlePrem) titlePrem.textContent = "Châssis Complet";
-    if(descPrem) descPrem.textContent = "Remplacement du châssis intégral.";
+    if (titlePrem) titlePrem.textContent = "Châssis Complet";
+    if (descPrem) descPrem.textContent = "Remplacement du châssis intégral.";
 
-  } else {
+  } else if (selectedType === 'batterie') {
+    // --- CAS BATTERIE ---
+    if(titleEco) titleEco.textContent = "Batterie Compatible";
+    if(descEco) descEco.textContent = "Batterie neuve certifiée";
+
+    if(titlePrem) titlePrem.textContent = "Batterie Origine";
+    if(descPrem) descPrem.textContent = "Batterie officielle.";
+
+  }else {
     // --- CAS PAR DÉFAUT ---
-    if(titleEco) titleEco.textContent = "Éco";
-    if(descEco) descEco.textContent = "Pièce générique de bonne facture, idéale petits budgets.";
+    if (titleEco) titleEco.textContent = "Éco";
+    if (descEco) descEco.textContent = "Pièce générique de bonne facture, idéale pour les petits budgets.";
 
-    if(titlePrem) titlePrem.textContent = "Premium";
-    if(descPrem) descPrem.textContent = "Qualité d'affichage et tactile identique à l'original.";
+    if (titlePrem) titlePrem.textContent = "Premium";
+    if (descPrem) descPrem.textContent = "Écrans premium haute qualité.";
   }
 }
 
 function Prix() {
   if (!tarifsData || !tarifsData.iphone) return;
   if (!selectedType || !selectedModel || !selectedQuality) {
-    if(priceValueEl) priceValueEl.textContent = "-- €";
-    if(priceDetailEl) priceDetailEl.textContent = "Sélectionnez vos options.";
+    if (priceValueEl) priceValueEl.textContent = "-- €";
+    if (priceDetailEl) priceDetailEl.textContent = "Sélectionnez vos options.";
     return;
   }
   const modelData = tarifsData.iphone[selectedModel];
   const serviceData = modelData[selectedType];
-  const price = serviceData ? serviceData[selectedQuality] : null;
-  if (price == null) { if(priceValueEl) priceValueEl.textContent = "-- €"; return; }
-  if(priceValueEl) priceValueEl.textContent = price + "€";
+
+  let jsonKey = selectedQuality; // Par défaut : 'eco' ou 'premium'
+
+  if (selectedType === 'chassis') {
+    // Si on est sur Châssis, on change les noms
+    if (selectedQuality === 'eco') jsonKey = 'Vitre_AR';
+    if (selectedQuality === 'premium') jsonKey = 'chassis-prix';
+  }
+
+  const price = serviceData ? serviceData[jsonKey] : null;
+  if (price == null) { if (priceValueEl) priceValueEl.textContent = "-- €"; return; }
+  if (priceValueEl) priceValueEl.textContent = price + "€";
+  // --- 2. GESTION DU TEXTE  ---
   const typeLabel = TYPE_LABELS[selectedType] || selectedType;
   const qualLabel = QUALITY_LABELS[selectedQuality] || selectedQuality;
   const modelLabel = modelData.label || selectedModel;
-  if(priceDetailEl) priceDetailEl.textContent = `Réparation ${typeLabel} (${qualLabel}) sur ${modelLabel}.`;
+
+  if (selectedType !== 'chassis') {
+    if (priceDetailEl) priceDetailEl.textContent = `Réparation ${typeLabel} (${qualLabel}) sur ${modelLabel}.`;
+  } else {
+    let labelchassis = "";
+    if (selectedQuality === 'eco') {
+      labelchassis = "Vitre Arrière";
+    } else if (selectedQuality === 'premium') {
+      labelchassis = "Châssis Complet";
+    }
+    if (priceDetailEl) priceDetailEl.textContent = `Réparation ${labelchassis} sur ${modelLabel}.`;
+  }
 }
 
 Type_Probleme.forEach((btn) => {
-  btn.addEventListener("click", () => { 
-    selectedType = btn.dataset.type; 
-    update_Type_Probleme(); 
-    updateQualityLabels(); 
-    Prix(); 
+  btn.addEventListener("click", () => {
+    selectedType = btn.dataset.type;
+    update_Type_Probleme();
+    updateQualityLabels();
+    Prix();
   });
 });
 
@@ -130,5 +160,5 @@ window.selectServiceFromCard = function (type) {
   update_Type_Probleme();
   updateQualityLabels();
   Prix();
-  
+
 };

@@ -17,6 +17,8 @@ window.showToast = function (message, type = 'success') {
   }, 2000);
 };
 
+
+// --- FORMULAIRE CONTACT ---
 document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.getElementById("contactForm");
   const contactAccessories = document.getElementById('contact-accessories');
@@ -177,15 +179,40 @@ if (reserveBtn) {
     // Vérification que les variables globales de tarif.js existent
     if (typeof selectedModel !== 'undefined' && typeof tarifsData !== 'undefined' && contactModel && contactIssue) {
       if (selectedModel && tarifsData.iphone[selectedModel]) {
+
         const modelName = tarifsData.iphone[selectedModel].label;
-        const typeName = TYPE_LABELS[selectedType];
-        const qualityName = QUALITY_LABELS[selectedQuality];
+
+        // Récupération des libellés de base
+        let qualityName = (typeof QUALITY_LABELS !== 'undefined') ? QUALITY_LABELS[selectedQuality] : selectedQuality;
+
+        // --- CORRECTION ICI : On change le nom de la qualité si c'est un châssis ---
+        switch (selectedType) {
+          case 'chassis':
+            if (selectedQuality === 'eco') qualityName = "Vitre Arrière";
+            if (selectedQuality === 'premium') qualityName = "Châssis Complet";
+            break;
+          case 'batterie':
+            if (selectedQuality === 'premium') qualityName = "Batterie Officielle Apple";
+            if (selectedQuality === 'eco') qualityName = "Batterie Compatible";
+            break;
+          case 'ecran':
+            if (selectedQuality === 'premium') qualityName = "Écran Original Apple";
+            if (selectedQuality === 'eco') qualityName = "Écran Compatible";
+            break;
+          default:
+            break;
+        }
+
+        // -----------------------------------------------------------------------
+
         const priceText = document.getElementById("priceValue") ? document.getElementById("priceValue").textContent : "-- €";
 
+        // Remplissage du formulaire
         contactModel.value = modelName;
-        const issueText = `Demande de réparation : ${typeName} (${qualityName}). Prix estimé : ${priceText}`;
+        const issueText = `Demande de réparation : (${qualityName}). Prix estimé : ${priceText}`;
         contactIssue.value = issueText;
 
+        // Sauvegarde automatique
         if (contactModel.name) localStorage.setItem('autosave_' + contactModel.name, modelName);
         if (contactIssue.name) localStorage.setItem('autosave_' + contactIssue.name, issueText);
 
