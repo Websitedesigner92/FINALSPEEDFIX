@@ -228,6 +228,8 @@ document.addEventListener('DOMContentLoaded', () => {
     saveCart();
 
     // Redirection vers le formulaire
+    // On laisse un "Post-it" pour la page suivante
+    localStorage.setItem('show_cart_toast', 'true');
     window.location.href = '../index.html#contact';
   };
   // Init
