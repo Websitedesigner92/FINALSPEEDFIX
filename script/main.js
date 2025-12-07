@@ -240,7 +240,7 @@ function renderCatalogueInsidePanel(data) {
                 e.stopPropagation(); // Empêche les clics multiples 
                 
                 // --- AJOUT SENSATIONS (Vibration) ---
-                if (navigator.vibrate) navigator.vibrate(1500);
+                if (navigator.vibrate) navigator.vibrate(50);
                 // ------------------------------------
 
                 // On détermine quelle action a été faite
