@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // --- LOGIQUE CATALOGUE ---
-const CATALOGUE_JSON_URL = "./script/catalogue.json"; 
+const CATALOGUE_JSON_URL = "catalogue.json"; 
 
 window.openCatalogue = async function() {
     const overlay = document.getElementById('catalogue-panel-overlay');
@@ -215,8 +215,8 @@ function renderCatalogueInsidePanel(data) {
             card.className = "flex gap-4 p-3 rounded-2xl border border-white/5 bg-gradient-to-br from-white/5 to-transparent transition-all duration-200 group relative overflow-hidden";
             
             card.innerHTML = `
-                <div class="w-20 h-20 bg-white rounded-xl p-2 flex-shrink-0 flex items-center justify-center shadow-inner">
-                    <img src="${prod.image}" class="max-w-full max-h-full object-contain">
+                <div class="w-20 h-20 bg-black/10 rounded-xl p-2 flex-shrink-0 flex items-center justify-center shadow-inner">
+                    <img src="${prod.image}" class="max-w-full max-h-full object-contain hover:scale-110 transition-transform duration-1000 drop-shadow-lg">
                 </div>
                 
                 <div class="flex flex-col justify-center flex-grow min-w-0">
