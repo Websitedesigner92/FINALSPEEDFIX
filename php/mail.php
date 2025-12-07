@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // 5. En-têtes pour envoyer un mail HTML propre
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    $headers .= "From: Site SpeedFix <noreply@speedfix.fr>" . "\r\n";
+    $headers .= "From: Site SpeedFix <noreply@speedfix.shop>" . "\r\n";
     $headers .= "Reply-To: $email" . "\r\n"; // Si tu récupères l'email client
 
     // 6. Envoi final
