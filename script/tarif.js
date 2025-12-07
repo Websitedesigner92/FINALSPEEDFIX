@@ -83,11 +83,11 @@ function updateQualityLabels() {
 
   } else if (selectedType === 'batterie') {
     // --- CAS BATTERIE ---
-    if (titleEco) titleEco.textContent = "Batterie Compatible";
-    if (descEco) descEco.textContent = "Batterie neuve certifiée";
+    if (titleEco) titleEco.textContent = "Batterie Eco";
+    if (descEco) descEco.textContent = "Option économique offrant de bonnes performances, légèrement inférieur à la premium.";
 
-    if (titlePrem) titlePrem.textContent = "Batterie Origine";
-    if (descPrem) descPrem.textContent = "Batterie officielle.";
+    if (titlePrem) titlePrem.textContent = "Batterie Premium";
+    if (descPrem) descPrem.textContent = "Capacité d’origine et performances optimales pour une excellente autonomie.";
 
   } else {
     // --- CAS PAR DÉFAUT ---
@@ -95,7 +95,7 @@ function updateQualityLabels() {
     if (descEco) descEco.textContent = "Pièce générique de bonne facture, idéale pour les petits budgets.";
 
     if (titlePrem) titlePrem.textContent = "Premium";
-    if (descPrem) descPrem.textContent = "Écrans premium haute qualité.";
+    if (descPrem) descPrem.textContent = "Écrans conçus avec la technologie d’origine, offrant un rendu haut de gamme au meilleur rapport qualité-prix.";
   }
 }
 
