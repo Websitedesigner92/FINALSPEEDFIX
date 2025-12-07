@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // --- LOGIQUE CATALOGUE ---
-const CATALOGUE_JSON_URL = "catalogue.json"; 
+const CATALOGUE_JSON_URL = "../script/catalogue.json"; 
 
 window.openCatalogue = async function() {
     const overlay = document.getElementById('catalogue-panel-overlay');
