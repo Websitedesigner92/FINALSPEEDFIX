@@ -110,25 +110,27 @@
       <nav class="hidden md:flex items-center gap-6 text-xs uppercase tracking-[0.16em] text-white/70">
         <a href="#tarifs" class="hover:text-primary transition-colors">Tarifs</a>
         <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
-        <a href="#faq" class="hover:text-primary transition-colors">FAQ / Avis</a>
+        <a href="#faq" class="hover:text-primary transition-colors">FAQ</a>
+        <a href="./pages/zones.html" class="hover:text-primary transition-colors">Zones</a>
         <a href="./pages/catalogue.html" class="hover:text-primary transition-colors">Catalogue</a>
       </nav>
-      
+
       <button id="mobileMenuButton"
-      class="md:hidden w-9 h-9 rounded-full border border-white/15 flex items-center justify-center">
-      <span class="sr-only">Menu</span>
-      <div class="space-y-1.5">
-        <span class="block w-4 h-[2px] bg-white"></span>
-        <span class="block w-4 h-[2px] bg-white"></span>
-      </div>
-    </button>
+        class="md:hidden w-9 h-9 rounded-full border border-white/15 flex items-center justify-center">
+        <span class="sr-only">Menu</span>
+        <div class="space-y-1.5">
+          <span class="block w-4 h-[2px] bg-white"></span>
+          <span class="block w-4 h-[2px] bg-white"></span>
+        </div>
+      </button>
     </div>
-    
+
     <div id="mobileMenu" class="md:hidden hidden border-t border-white/10 bg-dark">
       <nav class="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-3 text-xs uppercase tracking-[0.16em] text-white/80">
         <a href="#tarifs" class="py-1">Tarifs</a>
         <a href="#contact" class="py-1">Contact</a>
-        <a href="#faq" class="hover:text-primary transition-colors">FAQ / Avis</a>
+        <a href="#faq" class="hover:text-primary transition-colors">FAQ</a>
+        <a href="./pages/zones.html" class="hover:text-primary transition-colors">Zones</a>
         <a href="./pages/catalogue.html" class="py-1">Catalogue</a>
       </nav>
     </div>
@@ -719,100 +721,130 @@
   </section>
 
   <section id="reviews" class="py-20 border-t border-white/10 bg-dark">
-      <div class="max-w-7xl mx-auto px-6">
-        
-        <div class="text-center mb-16">
-          <span class="text-primary font-bold tracking-[0.2em] text-xs uppercase mb-2 block">Témoignages</span>
-          <h2 class="text-3xl md:text-5xl font-display font-black uppercase text-white">
-            Avis <span class="text-white/50">Clients</span>
-          </h2>
-          <div class="flex items-center justify-center gap-2 mt-4 text-sm font-bold text-white/60">
-             <span class="text-yellow-400">★★★★★</span> 4.9/5 sur Google
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div class="text-center mb-16">
+        <span class="text-primary font-bold tracking-[0.2em] text-xs uppercase mb-2 block">Témoignages</span>
+        <h2 class="text-3xl md:text-5xl font-display font-black uppercase text-white">
+          Avis <span class="text-white/50">Clients</span>
+        </h2>
+        <div class="flex items-center justify-center gap-2 mt-4 text-sm font-bold text-white/60">
+          <span class="text-yellow-400">★★★★★</span> 4.9/5 sur Google
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <div
+          class="group flex flex-col bg-[#0f0f0f] border border-white/5 rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 relative">
+
+          <div
+            class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-lg border border-white/10 text-[10px] font-bold text-white flex items-center gap-1 z-10">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z" />
+            </svg>
+            Google
+          </div>
+
+          <div class="p-6 flex flex-col flex-grow">
+
+            <div class="text-yellow-400 text-lg mb-3 tracking-widest mt-2">★★★★★</div>
+
+            <p class="text-xs text-white/50 mb-6 flex-grow leading-relaxed italic">
+              "Super service ! J'ai appelé à 10h, à 14h mon iPhone 12 était comme neuf. Le technicien est super sympa et
+              a réparé l'écran dans sa camionnette."
+            </p>
+
+            <div
+              class="w-full py-3 rounded-xl bg-white/5 border border-white/5 flex items-center px-4 gap-3 group-hover:bg-white/10 transition-colors">
+              <div
+                class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xs shadow-md">
+                SB</div>
+              <div>
+                <p class="text-white font-bold text-xs uppercase tracking-wide">Sarah B.</p>
+                <p class="text-[9px] text-white/40">iPhone 12</p>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div
+          class="group flex flex-col bg-[#0f0f0f] border border-white/5 rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 relative">
 
-          <div class="group flex flex-col bg-[#0f0f0f] border border-white/5 rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 relative">
-            
-            <div class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-lg border border-white/10 text-[10px] font-bold text-white flex items-center gap-1 z-10">
-               <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z" /></svg>
-               Google
-            </div>
-
-            <div class="p-6 flex flex-col flex-grow">
-              
-              <div class="text-yellow-400 text-lg mb-3 tracking-widest mt-2">★★★★★</div>
-              
-              <p class="text-xs text-white/50 mb-6 flex-grow leading-relaxed italic">
-                "Super service ! J'ai appelé à 10h, à 14h mon iPhone 12 était comme neuf. Le technicien est super sympa et a réparé l'écran dans sa camionnette."
-              </p>
-              
-              <div class="w-full py-3 rounded-xl bg-white/5 border border-white/5 flex items-center px-4 gap-3 group-hover:bg-white/10 transition-colors">
-                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xs shadow-md">SB</div>
-                <div>
-                   <p class="text-white font-bold text-xs uppercase tracking-wide">Sarah B.</p>
-                   <p class="text-[9px] text-white/40">iPhone 12</p>
-                </div>
-              </div>
-
-            </div>
+          <div
+            class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-lg border border-white/10 text-[10px] font-bold text-white flex items-center gap-1 z-10">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z" />
+            </svg>
+            Google
           </div>
 
-          <div class="group flex flex-col bg-[#0f0f0f] border border-white/5 rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 relative">
-            
-            <div class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-lg border border-white/10 text-[10px] font-bold text-white flex items-center gap-1 z-10">
-               <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z" /></svg>
-               Google
-            </div>
+          <div class="p-6 flex flex-col flex-grow">
+            <div class="text-yellow-400 text-lg mb-3 tracking-widest mt-2">★★★★★</div>
+            <p class="text-xs text-white/50 mb-6 flex-grow leading-relaxed italic">
+              "J'hésitais un peu pour le déplacement, mais c'est génial. Pas besoin de laisser son tel en boutique
+              pendant 2h. Prix très correct pour la qualité."
+            </p>
 
-            <div class="p-6 flex flex-col flex-grow">
-              <div class="text-yellow-400 text-lg mb-3 tracking-widest mt-2">★★★★★</div>
-              <p class="text-xs text-white/50 mb-6 flex-grow leading-relaxed italic">
-                "J'hésitais un peu pour le déplacement, mais c'est génial. Pas besoin de laisser son tel en boutique pendant 2h. Prix très correct pour la qualité."
-              </p>
-              
-              <div class="w-full py-3 rounded-xl bg-white/5 border border-white/5 flex items-center px-4 gap-3 group-hover:bg-white/10 transition-colors">
-                <div class="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white font-bold text-xs shadow-md">KD</div>
-                <div>
-                   <p class="text-white font-bold text-xs uppercase tracking-wide">Karim D.</p>
-                   <p class="text-[9px] text-white/40">iPhone 16 pro Max</p>
-                </div>
+            <div
+              class="w-full py-3 rounded-xl bg-white/5 border border-white/5 flex items-center px-4 gap-3 group-hover:bg-white/10 transition-colors">
+              <div
+                class="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white font-bold text-xs shadow-md">
+                KD</div>
+              <div>
+                <p class="text-white font-bold text-xs uppercase tracking-wide">Karim D.</p>
+                <p class="text-[9px] text-white/40">iPhone 16 pro Max</p>
               </div>
             </div>
           </div>
-
-          <div class="group flex flex-col bg-[#0f0f0f] border border-white/5 rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 relative">
-            
-            <div class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-lg border border-white/10 text-[10px] font-bold text-white flex items-center gap-1 z-10">
-               <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-               SMS
-            </div>
-
-            <div class="p-6 flex flex-col flex-grow">
-              <div class="text-yellow-400 text-lg mb-3 tracking-widest mt-2">★★★★★</div>
-              <p class="text-xs text-white/50 mb-6 flex-grow leading-relaxed italic">
-                "Intervention rapide sur Bezons. Mon tactile ne marchait plus, réparé en 15min chrono. Très pro et facture fournie pour mon assurance."
-              </p>
-              
-              <div class="w-full py-3 rounded-xl bg-white/5 border border-white/5 flex items-center px-4 gap-3 group-hover:bg-white/10 transition-colors">
-                <div class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-xs shadow-md">EL</div>
-                <div>
-                   <p class="text-white font-bold text-xs uppercase tracking-wide">Élodie L.</p>
-                   <p class="text-[9px] text-white/40">iPhone 13</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
-        
-        <div class="text-center mt-12">
-            <a href="https://g.page/r/CmVtC0-..." target="_blank" class="text-white/40 text-xs hover:text-primary transition-colors border-b border-transparent hover:border-primary">Voir plus d'avis</a>
+
+        <div
+          class="group flex flex-col bg-[#0f0f0f] border border-white/5 rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 relative">
+
+          <div
+            class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-lg border border-white/10 text-[10px] font-bold text-white flex items-center gap-1 z-10">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
+              </path>
+            </svg>
+            SMS
+          </div>
+
+          <div class="p-6 flex flex-col flex-grow">
+            <div class="text-yellow-400 text-lg mb-3 tracking-widest mt-2">★★★★★</div>
+            <p class="text-xs text-white/50 mb-6 flex-grow leading-relaxed italic">
+              "Intervention rapide sur Bezons. Mon tactile ne marchait plus, réparé en 15min chrono. Très pro et facture
+              fournie pour mon assurance."
+            </p>
+
+            <div
+              class="w-full py-3 rounded-xl bg-white/5 border border-white/5 flex items-center px-4 gap-3 group-hover:bg-white/10 transition-colors">
+              <div
+                class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-xs shadow-md">
+                EL</div>
+              <div>
+                <p class="text-white font-bold text-xs uppercase tracking-wide">Élodie L.</p>
+                <p class="text-[9px] text-white/40">iPhone 13</p>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
-    </section>
+
+      <div class="text-center mt-12">
+        <a href="https://g.page/r/CmVtC0-..." target="_blank"
+          class="text-white/40 text-xs hover:text-primary transition-colors border-b border-transparent hover:border-primary">Voir
+          plus d'avis</a>
+      </div>
+
+    </div>
+  </section>
 
   <footer class="border-t border-white/10 bg-black/90">
     <div
