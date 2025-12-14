@@ -20,7 +20,7 @@ window.showToast = function (message, type = 'success') {
 
 // --- GESTION DU PANIER DANS LE FORMULAIRE ---
 function updateFormCart() {
-    const cart = JSON.parse(localStorage.getItem('speedfix_cart')) || [];
+    const cart = JSON.parse(sessionStorage.getItem('speedfix_cart')) || [];
     const accessoriesField = document.getElementById('contact-accessories');
     let summaryVisual = document.getElementById('cart-summary-visual');
     let hiddenInput = document.querySelector('input[name="commande_json"]');
@@ -105,14 +105,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputs = contactForm.querySelectorAll('input:not([type="hidden"]), textarea');
     inputs.forEach(input => {
       if (input.id === 'captcha-answer') return;
-      const savedValue = localStorage.getItem('autosave_' + input.name);
+      const savedValue = sessionStorage.getItem('autosave_' + input.name);
       if (savedValue) input.value = savedValue;
-      input.addEventListener('input', () => localStorage.setItem('autosave_' + input.name, input.value));
+      input.addEventListener('input', () => sessionStorage.setItem('autosave_' + input.name, input.value));
     });
 
     contactForm.addEventListener('reset', () => {
-      inputs.forEach(input => localStorage.removeItem('autosave_' + input.name));
-      localStorage.removeItem('speedfix_cart');
+      inputs.forEach(input => sessionStorage.removeItem('autosave_' + input.name));
+      sessionStorage.removeItem('speedfix_cart');
       setTimeout(() => {
           updateFormCart();
           showToast("Formulaire et panier vidés", "success");
@@ -125,12 +125,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   if (typeof initCaptcha === 'function') initCaptcha();
-  if (localStorage.getItem('show_cart_toast')) {
+  if (sessionStorage.getItem('show_cart_toast')) {
       // On affiche la notification
       showToast("Panier validé !", "success");
       
       // On enlève le "Post-it" pour ne pas le réafficher si on rafraîchit la page
-      localStorage.removeItem('show_cart_toast');
+      sessionStorage.removeItem('show_cart_toast');
   }
 });
 
@@ -193,7 +193,7 @@ function getButtonHtml(qty) {
 function renderCatalogueInsidePanel(data) {
     const container = document.getElementById('catalogue-content');
     container.innerHTML = ''; 
-    const cart = JSON.parse(localStorage.getItem('speedfix_cart')) || [];
+    const cart = JSON.parse(sessionStorage.getItem('speedfix_cart')) || [];
 
     data.categories.forEach(cat => {
         const title = document.createElement('h3');
@@ -267,7 +267,7 @@ function renderCatalogueInsidePanel(data) {
 }
 
 function updateCartItem(name, price, image, qty) {
-    let cart = JSON.parse(localStorage.getItem('speedfix_cart')) || [];
+    let cart = JSON.parse(sessionStorage.getItem('speedfix_cart')) || [];
     const index = cart.findIndex(item => item.name === name);
 
     if (qty > 0) {
@@ -280,6 +280,110 @@ function updateCartItem(name, price, image, qty) {
         if (index > -1) cart.splice(index, 1);
     }
 
-    localStorage.setItem('speedfix_cart', JSON.stringify(cart));
+    sessionStorage.setItem('speedfix_cart', JSON.stringify(cart));
     updateFormCart();
 }
+
+
+
+
+
+
+
+// Gestion du bouton Réserver (Page Tarifs)
+const reserveBtn = document.getElementById("reserveButton");
+if (reserveBtn) {
+  reserveBtn.addEventListener("click", () => {
+    const contactModel = document.getElementById("contact-model");
+    const contactIssue = document.getElementById("contact-issue");
+
+    // Vérification que les variables globales de tarif.js existent
+    if (typeof selectedModel !== 'undefined' && typeof tarifsData !== 'undefined' && contactModel && contactIssue) {
+      if (selectedModel && tarifsData.iphone[selectedModel]) {
+
+        const modelName = tarifsData.iphone[selectedModel].label;
+
+        // Récupération des libellés de base
+        let qualityName = (typeof QUALITY_LABELS !== 'undefined') ? QUALITY_LABELS[selectedQuality] : selectedQuality;
+
+        // --- CORRECTION ICI : On change le nom de la qualité si c'est un châssis ---
+        switch (selectedType) {
+          case 'chassis':
+            if (selectedQuality === 'eco') qualityName = "Vitre Arrière";
+            if (selectedQuality === 'premium') qualityName = "Châssis Complet";
+            break;
+          case 'batterie':
+            if (selectedQuality === 'premium') qualityName = "Batterie Officielle Apple";
+            if (selectedQuality === 'eco') qualityName = "Batterie Compatible";
+            break;
+          case 'ecran':
+            if (selectedQuality === 'premium') qualityName = "Écran Original Apple";
+            if (selectedQuality === 'eco') qualityName = "Écran Compatible";
+            break;
+          default:
+            break;
+        }
+
+        // -----------------------------------------------------------------------
+
+        const priceText = document.getElementById("priceValue") ? document.getElementById("priceValue").textContent : "-- €";
+
+        // Remplissage du formulaire
+        contactModel.value = modelName;
+        const issueText = `Demande de réparation : (${qualityName}). Prix estimé : ${priceText}`;
+        contactIssue.value = issueText;
+
+        // Sauvegarde automatique
+        if (contactModel.name) sessionStorage.setItem('autosave_' + contactModel.name, modelName);
+        if (contactIssue.name) sessionStorage.setItem('autosave_' + contactIssue.name, issueText);
+
+        showToast("Réparation ajoutée au formulaire !", "success");
+      }
+    }
+
+    // --- SCROLL FLUIDE VERS LE FORMULAIRE ---
+    const contactSection = document.getElementById("contactForm");
+    if (!contactSection) return;
+
+    // 1. Calcul de l'offset (Marge pour le header fixe)
+    function getOffset() {
+      if (window.innerWidth < 768) {
+        return 50; // Mobile : on laisse 50px 
+      } else {
+        return 100;  // Desktop : on laisse 100px
+      }
+    }
+
+    // 2. Fonction d'animation mathématique
+    function smoothScrollTo(targetY, duration = 1800) {
+      const start = window.scrollY || window.pageYOffset;
+      const change = targetY - start;
+      const startTime = performance.now();
+
+      function animateScroll(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Fonction d'assouplissement (Ease Out Cubic)
+        const ease = 1 - Math.pow(1 - progress, 3);
+
+        window.scrollTo(0, start + change * ease);
+
+        if (progress < 1) {
+          requestAnimationFrame(animateScroll);
+        }
+      }
+
+      requestAnimationFrame(animateScroll);
+    }
+
+    // 3. Exécution
+    const offset = getOffset();
+    const rect = contactSection.getBoundingClientRect();
+    // On vise la position actuelle + distance de l'élément - la hauteur du header
+    const targetY = rect.top + window.scrollY - offset;
+
+    smoothScrollTo(targetY, 1000); // Durée de 1 secondes comme demandé
+  });
+};
+

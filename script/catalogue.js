@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const SHOP_URL = "../script/catalogue.json";
 
   // État du panier
-  let cart = JSON.parse(localStorage.getItem('speedfix_cart')) || [];
+  let cart = JSON.parse(sessionStorage.getItem('speedfix_cart')) || [];
 
   // --- 1. CHARGEMENT DU CATALOGUE ---
   async function loadShop() {
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   function saveCart() {
-    localStorage.setItem('speedfix_cart', JSON.stringify(cart));
+    sessionStorage.setItem('speedfix_cart', JSON.stringify(cart));
   }
 
   // --- MODALE ---
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Redirection vers le formulaire
     // On laisse un "Post-it" pour la page suivante
-    localStorage.setItem('show_cart_toast', 'true');
+    sessionStorage.setItem('show_cart_toast', 'true');
     window.location.href = '../index.html#contact';
   };
   // Init
