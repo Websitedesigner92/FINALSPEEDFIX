@@ -164,7 +164,7 @@ function Prix() {
     if (priceValueEl) {
       priceValueEl.textContent = "Sur Devis";
       // Taille un peu plus petite pour que le mot "Devis" rentre bien
-      priceValueEl.className = `${baseClasses} text-5xl md:text-7xl text-white`;
+      priceValueEl.className = `${baseClasses} text-7xl text-white`;
     }
     toggleCurrency(false);
 
@@ -183,7 +183,7 @@ function Prix() {
     if (priceValueEl) {
       priceValueEl.textContent = priceTTC;
       // Taille Maximale pour le prix
-      priceValueEl.className = `${baseClasses} text-5xl md:text-7xl`;
+      priceValueEl.className = `${baseClasses} text-7xl `;
     }
     toggleCurrency(true);
 
@@ -212,9 +212,9 @@ function Prix() {
      // Mise en page plus propre du texte de détail
      priceDetailEl.innerHTML = `
         <span class="block text-xs uppercase tracking-widest opacity-60 mb-1">Estimation pour</span>
-        <span class="text-primary font-bold">${labelService}</span> 
-        <span class="opacity-60"> sur </span> 
-        <span class="text-white font-bold">${modelLabel}</span>
+        <span class= "">${labelService}</span> 
+        <span class=""> sur </span> 
+        <span class="">${modelLabel}</span>
      `;
   }
 }
