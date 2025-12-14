@@ -103,17 +103,26 @@ function updateQualityLabels() {
 
 function Prix() {
   const priceValueEl = document.getElementById("priceValue");
-  const currencySymbolEl = document.getElementById("currencySymbol"); // Nouveau sélecteur
+  const currencySymbolEl = document.getElementById("currencySymbol");
   const priceValueHTEl = document.getElementById("priceValueHT");
   const priceContainerHT = document.getElementById("price-ht-container");
   const priceDetailEl = document.getElementById("priceDetail");
   const tvaBadge = document.getElementById("tva-badge");
 
+  // Style de base pour le gros texte (Dégradé Blanc vers Gris + Ombre portée)
+  const baseClasses = "font-display font-black tracking-tighter drop-shadow-xl transition-all duration-300 bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent";
+
   // Fonction utilitaire pour gérer l'affichage de l'Euro
   const toggleCurrency = (show) => {
     if (currencySymbolEl) {
-      if (show) currencySymbolEl.classList.remove("hidden");
-      else currencySymbolEl.classList.add("hidden");
+      if (show) {
+        currencySymbolEl.classList.remove("hidden");
+        // Petit effet d'apparition
+        currencySymbolEl.classList.add("opacity-100", "translate-y-0");
+        currencySymbolEl.classList.remove("opacity-0", "translate-y-2");
+      } else {
+        currencySymbolEl.classList.add("hidden");
+      }
     }
   };
 
@@ -123,12 +132,12 @@ function Prix() {
   if (!selectedType || !selectedModel || !selectedQuality) {
     if (priceValueEl) {
       priceValueEl.textContent = "--";
-      // Taille renforcée par défaut
-      priceValueEl.className = "font-black text-white/60 tracking-tighter drop-shadow-2xl text-8xl md:text-9xl transition-all duration-300"; 
+      // On garde une taille grande mais grisée
+      priceValueEl.className = `${baseClasses} text-5xl md:text-7xl opacity-30`; 
     }
     toggleCurrency(false);
     
-    if (priceDetailEl) priceDetailEl.textContent = "Sélectionnez vos options.";
+    if (priceDetailEl) priceDetailEl.innerHTML = "Sélectionnez vos options <br>pour voir le tarif.";
     if (priceContainerHT) {
         priceContainerHT.style.height = "0px";
         priceContainerHT.classList.remove('opacity-100', 'mt-4');
@@ -150,11 +159,12 @@ function Prix() {
 
   const priceRaw = serviceData ? serviceData[jsonKey] : null;
 
-  // --- AFFICHAGE ---
+  // --- CAS 2 : DEVIS ---
   if (priceRaw === "NAN" || priceRaw === null) {
     if (priceValueEl) {
-      priceValueEl.textContent = "Devis";
-      priceValueEl.className = "font-black text-white tracking-tighter drop-shadow-2xl text-7xl md:text-9xl transition-all duration-300";
+      priceValueEl.textContent = "Sur Devis";
+      // Taille un peu plus petite pour que le mot "Devis" rentre bien
+      priceValueEl.className = `${baseClasses} text-5xl md:text-7xl text-white`;
     }
     toggleCurrency(false);
 
@@ -165,16 +175,17 @@ function Prix() {
     }
     if (tvaBadge) tvaBadge.classList.remove('opacity-100');
 
-  }  else {
+  } else {
     // --- CAS 3 : PRIX NORMAL ---
     const priceTTC = parseFloat(priceRaw);
     const priceHT = (priceTTC / 1.2).toFixed(2);
 
     if (priceValueEl) {
       priceValueEl.textContent = priceTTC;
-      priceValueEl.className = "font-black text-white tracking-tighter drop-shadow-2xl text-8xl md:text-9xl transition-all duration-300";
+      // Taille Maximale pour le prix
+      priceValueEl.className = `${baseClasses} text-5xl md:text-7xl`;
     }
-    toggleCurrency(true); // On affiche l'euro
+    toggleCurrency(true);
 
     if (priceValueHTEl) priceValueHTEl.textContent = priceHT;
 
@@ -198,7 +209,13 @@ function Prix() {
   }
 
   if (priceDetailEl) {
-     priceDetailEl.innerHTML = `Estimation pour <span class="text-primary font-bold">${labelService}</span> sur <span class="text-white font-bold">${modelLabel}</span>.`;
+     // Mise en page plus propre du texte de détail
+     priceDetailEl.innerHTML = `
+        <span class="block text-xs uppercase tracking-widest opacity-60 mb-1">Estimation pour</span>
+        <span class="text-primary font-bold">${labelService}</span> 
+        <span class="opacity-60"> sur </span> 
+        <span class="text-white font-bold">${modelLabel}</span>
+     `;
   }
 }
 
