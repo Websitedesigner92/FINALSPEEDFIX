@@ -70,7 +70,7 @@
       "label": "iPhone 15 / 15 Plus / 15 Pro",
       "ecran":   { "eco": 90, "premium": 150 },
       "batterie":{ "eco": 70, "premium": 90 },
-      "chassis": { "Vitre_AR": 45, "chassis-prix": 43 }
+      "chassis": { "Vitre_AR": "NAN", "chassis-prix": 43 }
     },
     "15promax": {
       "label": "iPhone 15 Pro Max",

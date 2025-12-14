@@ -43,6 +43,8 @@ function update_Type_Probleme() {
     btn.classList.toggle("border-primary", active);
     if (active) btn.classList.remove("bg-white/5", "text-white/80");
     else { btn.classList.add("bg-white/5", "text-white/80"); btn.classList.remove("text-black"); }
+
+    
   });
 }
 
@@ -118,8 +120,21 @@ function Prix() {
   }
 
   const price = serviceData ? serviceData[jsonKey] : null;
-  if (price == null) { if (priceValueEl) priceValueEl.textContent = "-- €"; return; }
-  if (priceValueEl) priceValueEl.textContent = price + "€";
+
+  // --- 1. GESTION DU PRIX  ---
+  switch(price) {
+    case "NAN":
+      if (priceValueEl) priceValueEl.textContent = "Nous contacter";
+      break;  
+    case null:
+      if (priceValueEl) priceValueEl.textContent = "-- €";
+      break;
+    default:
+      if (priceValueEl) priceValueEl.textContent = price + "€";
+      break;
+  }
+
+
   // --- 2. GESTION DU TEXTE  ---
   const modelLabel = modelData.label || selectedModel;
   let labelchassis = "";
@@ -131,7 +146,7 @@ function Prix() {
       (selectedQuality === 'eco') ? labelchassis = "Batterie Compatible" : labelchassis = "Batterie Origine";
       break;
     case 'chassis':
-      (selectedQuality === 'eco') ? labelchassis = "Vitre Arrière" : labelchassis = "Châssis Complet";
+      (jsonKey === "Vitre_AR") ? labelchassis = "Vitre Arrière" : labelchassis = "Châssis Complet";
       break;
     default:
       break;

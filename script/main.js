@@ -37,7 +37,7 @@ function updateFormCart() {
         // On supprime le champ caché technique
         if (hiddenInput) hiddenInput.remove();
         
-        // On réaffiche le champ texte normal... ET ON LE VIDE ! (C'était ça le bug)
+        // On réaffiche le champ texte normal... ET ON LE VIDE ! 
         if (accessoriesField) {
             accessoriesField.style.display = 'block';
             accessoriesField.value = ''; // <--- CORRECTION ICI
