@@ -4,7 +4,7 @@
       "label": "iPhone 7 / 8 / SE 2",
       "ecran":   { "eco": 30, "premium": 35 },
       "batterie":{ "eco": 20, "premium": 30 },
-      "chassis": { "Vitre_AR": 50, "chassis-prix": 50 }
+      "chassis": { "Vitre_AR": 100, "chassis-prix": 50 }
     },
     "7plus_8plus": {
       "label": "iPhone 7 Plus / 8 Plus",

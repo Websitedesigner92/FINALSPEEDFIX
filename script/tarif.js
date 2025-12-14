@@ -44,7 +44,7 @@ function update_Type_Probleme() {
     if (active) btn.classList.remove("bg-white/5", "text-white/80");
     else { btn.classList.add("bg-white/5", "text-white/80"); btn.classList.remove("text-black"); }
 
-    
+
   });
 }
 
@@ -102,57 +102,104 @@ function updateQualityLabels() {
 }
 
 function Prix() {
+  const priceValueEl = document.getElementById("priceValue");
+  const currencySymbolEl = document.getElementById("currencySymbol"); // Nouveau sélecteur
+  const priceValueHTEl = document.getElementById("priceValueHT");
+  const priceContainerHT = document.getElementById("price-ht-container");
+  const priceDetailEl = document.getElementById("priceDetail");
+  const tvaBadge = document.getElementById("tva-badge");
+
+  // Fonction utilitaire pour gérer l'affichage de l'Euro
+  const toggleCurrency = (show) => {
+    if (currencySymbolEl) {
+      if (show) currencySymbolEl.classList.remove("hidden");
+      else currencySymbolEl.classList.add("hidden");
+    }
+  };
+
   if (!tarifsData || !tarifsData.iphone) return;
+
+  // --- CAS 1 : RIEN SÉLECTIONNÉ ---
   if (!selectedType || !selectedModel || !selectedQuality) {
-    if (priceValueEl) priceValueEl.textContent = "-- €";
+    if (priceValueEl) {
+      priceValueEl.textContent = "--";
+      // Taille renforcée par défaut
+      priceValueEl.className = "font-black text-white/60 tracking-tighter drop-shadow-2xl text-8xl md:text-9xl transition-all duration-300"; 
+    }
+    toggleCurrency(false);
+    
     if (priceDetailEl) priceDetailEl.textContent = "Sélectionnez vos options.";
+    if (priceContainerHT) {
+        priceContainerHT.style.height = "0px";
+        priceContainerHT.classList.remove('opacity-100', 'mt-4');
+        priceContainerHT.classList.add('opacity-0');
+    }
+    if (tvaBadge) tvaBadge.classList.remove('opacity-100');
     return;
   }
+
+  // --- RÉCUPÉRATION DONNÉES ---
   const modelData = tarifsData.iphone[selectedModel];
   const serviceData = modelData[selectedType];
-
-  let jsonKey = selectedQuality; // Par défaut : 'eco' ou 'premium'
+  let jsonKey = selectedQuality;
 
   if (selectedType === 'chassis') {
-    // Si on est sur Châssis, on change les noms
     if (selectedQuality === 'eco') jsonKey = 'Vitre_AR';
     if (selectedQuality === 'premium') jsonKey = 'chassis-prix';
   }
 
-  const price = serviceData ? serviceData[jsonKey] : null;
+  const priceRaw = serviceData ? serviceData[jsonKey] : null;
 
-  // --- 1. GESTION DU PRIX  ---
-  switch(price) {
-    case "NAN":
-      if (priceValueEl) priceValueEl.textContent = "Nous contacter";
-      break;  
-    case null:
-      if (priceValueEl) priceValueEl.textContent = "-- €";
-      break;
-    default:
-      if (priceValueEl) priceValueEl.textContent = price + "€";
-      break;
+  // --- AFFICHAGE ---
+  if (priceRaw === "NAN" || priceRaw === null) {
+    if (priceValueEl) {
+      priceValueEl.textContent = "Devis";
+      priceValueEl.className = "font-black text-white tracking-tighter drop-shadow-2xl text-7xl md:text-9xl transition-all duration-300";
+    }
+    toggleCurrency(false);
+
+    if (priceContainerHT) {
+        priceContainerHT.style.height = "0px";
+        priceContainerHT.classList.remove('opacity-100', 'mt-4');
+        priceContainerHT.classList.add('opacity-0');
+    }
+    if (tvaBadge) tvaBadge.classList.remove('opacity-100');
+
+  }  else {
+    // --- CAS 3 : PRIX NORMAL ---
+    const priceTTC = parseFloat(priceRaw);
+    const priceHT = (priceTTC / 1.2).toFixed(2);
+
+    if (priceValueEl) {
+      priceValueEl.textContent = priceTTC;
+      priceValueEl.className = "font-black text-white tracking-tighter drop-shadow-2xl text-8xl md:text-9xl transition-all duration-300";
+    }
+    toggleCurrency(true); // On affiche l'euro
+
+    if (priceValueHTEl) priceValueHTEl.textContent = priceHT;
+
+    if (priceContainerHT) {
+        priceContainerHT.classList.remove('opacity-0');
+        priceContainerHT.classList.add('opacity-100', 'mt-4');
+        priceContainerHT.style.height = "auto"; 
+    }
+    if (tvaBadge) tvaBadge.classList.add('opacity-100');
   }
 
-
-  // --- 2. GESTION DU TEXTE  ---
+  // --- TEXTES DESCRIPTIFS ---
   const modelLabel = modelData.label || selectedModel;
-  let labelchassis = "";
+  let labelService = "";
+  
   switch (selectedType) {
-    case 'ecran':
-      (selectedQuality === 'eco') ? labelchassis = "Écran Éco" : labelchassis = "Écran Original";
-      break;
-    case 'batterie':
-      (selectedQuality === 'eco') ? labelchassis = "Batterie Compatible" : labelchassis = "Batterie Origine";
-      break;
-    case 'chassis':
-      (jsonKey === "Vitre_AR") ? labelchassis = "Vitre Arrière" : labelchassis = "Châssis Complet";
-      break;
-    default:
-      break;
+    case 'ecran': labelService = (selectedQuality === 'eco') ? "Écran Gamme Éco" : "Écran Original"; break;
+    case 'batterie': labelService = (selectedQuality === 'eco') ? "Batterie Compatible" : "Batterie Origine"; break;
+    case 'chassis': labelService = (jsonKey === "Vitre_AR") ? "Vitre Arrière" : "Châssis Complet"; break;
+    default: labelService = "Réparation";
   }
-  if (priceDetailEl) priceDetailEl.textContent = `Réparation ${labelchassis} sur ${modelLabel}.`;
 
+  if (priceDetailEl) {
+     priceDetailEl.innerHTML = `Estimation pour <span class="text-primary font-bold">${labelService}</span> sur <span class="text-white font-bold">${modelLabel}</span>.`;
+  }
 }
 
 Type_Probleme.forEach((btn) => {
@@ -179,3 +226,4 @@ window.selectServiceFromCard = function (type) {
   Prix();
 
 };
+
