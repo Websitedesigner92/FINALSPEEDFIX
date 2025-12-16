@@ -104,8 +104,6 @@ function updateQualityLabels() {
 function Prix() {
   const priceValueEl = document.getElementById("priceValue");
   const currencySymbolEl = document.getElementById("currencySymbol");
-  const priceValueHTEl = document.getElementById("priceValueHT");
-  const priceContainerHT = document.getElementById("price-ht-container");
   const priceDetailEl = document.getElementById("priceDetail");
   const tvaBadge = document.getElementById("tva-badge");
 
@@ -138,11 +136,6 @@ function Prix() {
     toggleCurrency(false);
     
     if (priceDetailEl) priceDetailEl.innerHTML = "Sélectionnez vos options <br>pour voir le tarif.";
-    if (priceContainerHT) {
-        priceContainerHT.style.height = "0px";
-        priceContainerHT.classList.remove('opacity-100', 'mt-4');
-        priceContainerHT.classList.add('opacity-0');
-    }
     if (tvaBadge) tvaBadge.classList.remove('opacity-100');
     return;
   }
@@ -168,17 +161,11 @@ function Prix() {
     }
     toggleCurrency(false);
 
-    if (priceContainerHT) {
-        priceContainerHT.style.height = "0px";
-        priceContainerHT.classList.remove('opacity-100', 'mt-4');
-        priceContainerHT.classList.add('opacity-0');
-    }
     if (tvaBadge) tvaBadge.classList.remove('opacity-100');
 
   } else {
     // --- CAS 3 : PRIX NORMAL ---
     const priceTTC = parseFloat(priceRaw);
-    const priceHT = (priceTTC / 1.2).toFixed(2);
 
     if (priceValueEl) {
       priceValueEl.textContent = priceTTC;
@@ -187,13 +174,7 @@ function Prix() {
     }
     toggleCurrency(true);
 
-    if (priceValueHTEl) priceValueHTEl.textContent = priceHT;
 
-    if (priceContainerHT) {
-        priceContainerHT.classList.remove('opacity-0');
-        priceContainerHT.classList.add('opacity-100', 'mt-4');
-        priceContainerHT.style.height = "auto"; 
-    }
     if (tvaBadge) tvaBadge.classList.add('opacity-100');
   }
 

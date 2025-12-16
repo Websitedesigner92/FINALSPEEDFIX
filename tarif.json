@@ -1,94 +1,202 @@
 {
   "iphone": {
-    "7_8_se2": {
-      "label": "iPhone 7 / 8 / SE 2",
-      "ecran":   { "eco": 30, "premium": 35 },
-      "batterie":{ "eco": 20, "premium": 30 },
-      "chassis": { "Vitre_AR": 100, "chassis-prix": 50 }
+    "7": {
+      "label": "iPhone 7 ",
+      "ecran":   { "eco": 35, "premium": 45 },
+      "batterie":{ "eco": 25, "premium": 40 },
+      "chassis": { "Vitre_AR": "NAN", "chassis-prix": 80 }
     },
-    "7plus_8plus": {
-      "label": "iPhone 7 Plus / 8 Plus",
-      "ecran":   { "eco": 40, "premium": 50 },
-      "batterie":{ "eco": 20, "premium": 30 },
-      "chassis": { "Vitre_AR": 65, "chassis-prix": 65 }
+    "7plus": {
+      "label": "iPhone 7 Plus ",
+      "ecran":   { "eco": 50, "premium": 60 },
+      "batterie":{ "eco": 25, "premium": 40 },
+      "chassis": { "Vitre_AR": "NAN", "chassis-prix": 90 }
     },
-    "x_xs_11pro_xsmax": {
-      "label": "iPhone X / XS / 11 Pro / XS Max",
-      "ecran":   { "eco": 40, "premium": 60 },
-      "batterie":{ "eco": 30, "premium": 40 },
-      "chassis": { "Vitre_AR": 75, "chassis-prix": 80 }
+    "8": {
+      "label": "iPhone 8",
+      "ecran":   { "eco": 35, "premium": 45 },
+      "batterie":{ "eco": 25, "premium": 40 },
+      "chassis": { "Vitre_AR": 70, "chassis-prix": 80 }
     },
-    "xr_11": {
-      "label": "iPhone XR / 11",
-      "ecran":   { "eco": 50, "premium": 70 },
-      "batterie":{ "eco": 30, "premium": 40 },
-      "chassis": { "Vitre_AR": 70, "chassis-prix": 70 }
+    "8plus": {
+      "label": "iPhone  8 Plus",
+      "ecran":   { "eco": 50, "premium": 60 },
+      "batterie":{ "eco": 25, "premium": 40 },
+      "chassis": { "Vitre_AR": 80, "chassis-prix": 90 }
     },
-    "12_12pro": {
-      "label": "iPhone 12 / 12 Pro",
-      "ecran":   { "eco": 50, "premium": 90 },
-      "batterie":{ "eco": 50, "premium": 70 },
+    "SE2": {
+      "label": "iPhone SE2",
+      "ecran":   { "eco": 35, "premium": 45 },
+      "batterie":{ "eco": 25, "premium": 40 },
+      "chassis": { "Vitre_AR": 70, "chassis-prix": 90 }
+    },    
+    "x": {
+      "label": "iPhone X ",
+      "ecran":   { "eco": 60, "premium": 100 },
+      "batterie":{ "eco": 40, "premium": 50 },
+      "chassis": { "Vitre_AR": 80, "chassis-prix": 100 }
+    },
+    "xs": {
+      "label": "iPhone  XS ",
+      "ecran":   { "eco": 60, "premium": 100 },
+      "batterie":{ "eco": 40, "premium": 50 },
+      "c hassis": { "Vitre_AR": 80, "chassis-prix": 100 }
+    },
+    "xr": {
+      "label": "iPhone XR ",
+      "ecran":   { "eco": 50, "premium": 60 },
+      "batterie":{ "eco": 40, "premium": 50 },
+      "chassis": { "Vitre_AR": 80, "chassis-prix": 100 }
+    },
+    "xs_max": {
+      "label": "iPhone  XS Max ",
+      "ecran":   { "eco": 60, "premium": 100 },
+      "batterie":{ "eco": 40, "premium": 50 },
+      "chassis": { "Vitre_AR": 80, "chassis-prix": 100 }
+    },
+    "11": {
+      "label": "iPhone 11",
+      "ecran":   { "eco": 50, "premium": 60 },
+      "batterie":{ "eco": 40, "premium": 50 },
+      "chassis": { "Vitre_AR": 80, "chassis-prix": 100 }
+    },
+    "11 Pro": {
+      "label": "iPhone 11 Pro",
+      "ecran":   { "eco": 60, "premium": 100 },
+      "batterie":{ "eco": 40, "premium": 50 },
+      "chassis": { "Vitre_AR": 80, "chassis-prix": 100 }
+    },
+    "11 Pro Max": {
+      "label": "iPhone 11 Pro Max",
+      "ecran":   { "eco": 60, "premium": 100 },
+      "batterie":{ "eco": 40, "premium": 50 },
+      "chassis": { "Vitre_AR": 80, "chassis-prix": 100 }
+    },
+    "12": {
+      "label": "iPhone 12 ",
+      "ecran":   { "eco": 60, "premium": 110 },
+      "batterie":{ "eco": 60, "premium": 85 },
+      "chassis": { "Vitre_AR": 90, "chassis-prix": 90 }
+    },
+    "12mini": {
+      "label": "iPhone 12 Mini",
+      "ecran":   { "eco": 85, "premium": 120 },
+      "batterie":{ "eco": 60, "premium": 85 },
+      "chassis": { "Vitre_AR": 100, "chassis-prix": 100 }
+    },
+    "12pro": {
+      "label": "iPhone 12 Pro",
+      "ecran":   { "eco": 60, "premium": 110 },
+      "batterie":{ "eco": 50, "premium": 75 },
       "chassis": { "Vitre_AR": 90, "chassis-prix": 90 }
     },
     "12promax": {
       "label": "iPhone 12 Pro Max",
-      "ecran":   { "eco": 60, "premium": 120 },
-      "batterie":{ "eco": 50, "premium": 70 },
+      "ecran":   { "eco": 80, "premium": 145 },
+      "batterie":{ "eco": 60, "premium": 85 },
       "chassis": { "Vitre_AR": 110, "chassis-prix": 110 }
     },
-    "13_14": {
-      "label": "iPhone 13 / 14",
-      "ecran":   { "eco": 70, "premium": 110 },
-      "batterie":{ "eco": 50, "premium": 70 },
+    "13": {
+      "label": "iPhone 13 ",
+      "ecran":   { "eco": 85, "premium": 110 },
+      "batterie":{ "eco": 60, "premium": 85 },
       "chassis": { "Vitre_AR": 130, "chassis-prix": 130 }
     },
-    "12mini_13mini": {
-      "label": "iPhone 12 Mini / 13 Mini",
-      "ecran":   { "eco": 70, "premium": 100 },
-      "batterie":{ "eco": 50, "premium": 70 },
+    "13mini": {
+      "label": "iPhone 13 Mini",
+      "ecran":   { "eco": 85, "premium": 120 },
+      "batterie":{ "eco": 60, "premium": 85 },
       "chassis": { "Vitre_AR": 100, "chassis-prix": 100 }
     },
     "13pro": {
       "label": "iPhone 13 Pro",
-      "ecran":   { "eco": 70, "premium": 120 },
-      "batterie":{ "eco": 50, "premium": 70 },
+      "ecran":   { "eco": 85, "premium": 135 },                                                                        
+      "batterie":{ "eco": 60, "premium": 85 },
       "chassis": { "Vitre_AR": 140, "chassis-prix": 140 }
     },
-    "13promax_14pro": {
-      "label": "iPhone 13 Pro Max / 14 Pro",
-      "ecran":   { "eco": 80, "premium": 130 },
-      "batterie":{ "eco": 60, "premium": 80 },
-      "chassis": { "Vitre_AR": 150, "chassis-prix": 150 }
+    "13promax": {
+      "label": "iPhone 13 Pro Max ",
+      "ecran":   { "eco": 100, "premium": 150 },
+      "batterie":{ "eco": 60, "premium": 85 },
+      "chassis": { "Vitre_AR": 150, "chassis-prix": 150 }   
+    },
+    "14": {
+      "label": "iPhone 14",
+      "ecran":   { "eco": 85, "premium": 110 },
+      "batterie":{ "eco": 60, "premium": 85 },
+      "chassis": { "Vitre_AR": 130, "chassis-prix": 130 }
+    },
+    "14+": {
+      "label": "iPhone 14 Plus",
+      "ecran":   { "eco": 100, "premium": 150 },
+      "batterie":{ "eco": 60, "premium": 85 },
+      "chassis": { "Vitre_AR": 150, "chassis-prix": 150 }   
+    },
+    "14pro": {
+      "label": "iPhone 14 Pro",
+      "ecran":   { "eco": 100, "premium": 180 },                                                                        
+      "batterie":{ "eco": 75, "premium": 100 },
+      "chassis": { "Vitre_AR": 140, "chassis-prix": 140 }
     },
     "14promax": {
       "label": "iPhone 14 Pro Max",
-      "ecran":   { "eco": 90, "premium": 150 },
-      "batterie":{ "eco": 60, "premium": 80 },
+      "ecran":   { "eco": 110, "premium": 180 },
+      "batterie":{ "eco": 85, "premium": 110 },
       "chassis": { "Vitre_AR": 150, "chassis-prix": 150 }
     },
-    "15_15plus_15pro": {
-      "label": "iPhone 15 / 15 Plus / 15 Pro",
-      "ecran":   { "eco": 90, "premium": 150 },
-      "batterie":{ "eco": 70, "premium": 90 },
-      "chassis": { "Vitre_AR": "NAN", "chassis-prix": 43 }
+    "15": {
+      "label": "iPhone 15 ",
+      "ecran":   { "eco": 85, "premium": 160 },
+      "batterie":{ "eco": 75, "premium": 100 },
+      "chassis": { "Vitre_AR": 120, "chassis-prix": "NAN" }
+    },
+    "15plus": {
+      "label": "iPhone 15 Plus ",
+      "ecran":   { "eco": 100, "premium": 180 },
+      "batterie":{ "eco": 75, "premium": 100 },
+      "chassis": { "Vitre_AR": 130, "chassis-prix": "NAN" }
+    },
+    "15pro": {
+      "label": "iPhone 15 Pro",
+      "ecran":   { "eco": 100, "premium": 220 },
+      "batterie":{ "eco": 85, "premium": 110 },
+      "chassis": { "Vitre_AR": 130, "chassis-prix": "NAN" }
     },
     "15promax": {
       "label": "iPhone 15 Pro Max",
-      "ecran":   { "eco": 100, "premium": 160 },
-      "batterie":{ "eco": 70, "premium": 90 },
-      "chassis": { "Vitre_AR":65165 , "chassis-prix": 540 }
+      "ecran":   { "eco": 110, "premium": 230 },
+      "batterie":{ "eco": 85, "premium": 110 },
+      "chassis": { "Vitre_AR":120 , "chassis-prix": "NAN" }
     },
-    "16_16pro_16promax": {
-      "label": "iPhone 16 / 16 Pro",
-      "ecran":   { "eco": 90, "premium": 190 },
-      "batterie":{ "eco": 70, "premium": 90 },
-      "chassis": { "Vitre_AR": 45, "chassis-prix": 435 }
+    "16": {
+      "label": "iPhone 16",
+      "ecran":   { "eco": 110, "premium": 160 },
+      "batterie":{ "eco": 90, "premium": 130 },
+      "chassis": { "Vitre_AR": 130, "chassis-prix": "NAN" }
+    },
+    "16plus": {
+      "label": "iPhone 16 plus ",
+      "ecran":   { "eco": 110, "premium": 160 },
+      "batterie":{ "eco": 90, "premium": 130 },
+      "chassis": { "Vitre_AR": 150, "chassis-prix": "NAN" }
+    },
+    "16pro": {
+      "label": "iPhone 16 Pro",
+      "ecran":   { "eco": 145, "premium": 220 },
+      "batterie":{ "eco": 90, "premium": 240 },
+      "chassis": { "Vitre_AR": 150, "chassis-prix": "NAN" }
+    },
+    "16e": {
+      "label": "iPhone 16e",
+      "ecran":   { "eco": 110, "premium": 180 },
+      "batterie":{ "eco": 85, "premium": 110 },
+      "chassis": { "Vitre_AR": 150, "chassis-prix": "NAN" }
     },
     "16promax": {
       "label": "iPhone 16 Pro Max",
-      "ecran":   { "eco": 110, "premium": 200 },
-      "batterie":{ "eco": 80, "premium": 100 },
-      "chassis": { "Vitre_AR": 51654, "chassis-prix": 6465456 }
+      "ecran":   { "eco": 160, "premium": 300 },
+      "batterie":{ "eco": 90, "premium": 145 },
+      "chassis": { "Vitre_AR": 150, "chassis-prix": "NAN" }
     }
   }
 }
